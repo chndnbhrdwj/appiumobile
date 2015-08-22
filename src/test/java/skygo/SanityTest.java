@@ -12,8 +12,10 @@ public class SanityTest{
     public void testIt() throws Exception{
     new HomePage()
             .gotToMenuListPage()
-            .goToOnNowPage()
-            .gotToAllChannels();
+            .goToSkyMoviesPage()
+            .clickShowcaseItem()
+            .watchProgram()
+            .videoViewDisplayed();
 
     }
 }

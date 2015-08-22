@@ -1,9 +1,14 @@
 package pageobjects;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -12,13 +17,17 @@ import java.util.concurrent.TimeUnit;
  * Created by cku04 on 17/08/2015.
  */
 public class Page{
-    public static AndroidDriver driver;
+    public static AppiumDriver driver;
 
     public Page(){
-        PageFactory.initElements(new AppiumFieldDecorator(getInstance()),this);
+        PageFactory.initElements(new AppiumFieldDecorator(getInstance(), 20, TimeUnit.SECONDS), this);
     }
 
-    private static AndroidDriver getInstance(){
+    protected static void waitForElement(WebElement element) {
+        new WebDriverWait(driver, 10000).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    private static AppiumDriver getInstance() {
         if(driver != null){
             return driver;
         }
@@ -29,10 +38,10 @@ public class Page{
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
         try{
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
-            Thread.sleep(3000);
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         }catch (Exception e){
-            e.getMessage();
+            System.out.println("The driver was not initialized successfully or Homepage took more than 10 secs to load.");
         }
         return driver;
     }

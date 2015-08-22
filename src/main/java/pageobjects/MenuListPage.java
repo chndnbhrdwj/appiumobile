@@ -1,17 +1,12 @@
 package pageobjects;
 
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * Created by cku04 on 20/08/2015.
  */
 public class MenuListPage extends Page{
-
-    @AndroidFindBy(id="com.bskyb.skygo:id/menu_list")
-    private WebElement menuList;
 
     @AndroidFindBy(xpath="//android.widget.TextView[@text='On Now']")
     private WebElement onNow;
