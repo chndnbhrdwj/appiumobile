@@ -1,28 +1,21 @@
 package pageobjects;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebElement;
+import pagecomponents.Element;
 
 /**
  * Created by cku04 on 20/08/2015.
  */
-public class SkyMoviesPage extends HomePage{
+public class SkyMoviesPage extends ShowCasePage {
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/image")
-    private WebElement showcaseItem;
+    WebElement recentlyAdded;
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/program_title")
-    private WebElement programName;
-
-    @AndroidFindBy(id = "com.bskyb.skygo:id/channel_name")
-    private WebElement channelName;
-
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Recently Added']")
-    private WebElement recentlyAdded;
+    public SkyMoviesPage() {
+        recentlyAdded = new Element().elementByXpath("//android.widget.TextView[@text='Recently Added']");
+    }
 
     public ProgramDetailPage clickShowcaseItem() {
-        System.out.println("Playing program: " + channelName.getAttribute("text") + ": " + programName.getAttribute("text"));
-        showcaseItem.click();
+        showCaseItem.click();
         return new ProgramDetailPage();
     }
 

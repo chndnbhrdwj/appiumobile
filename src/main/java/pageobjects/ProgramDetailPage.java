@@ -1,26 +1,25 @@
 package pageobjects;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import org.openqa.selenium.WebElement;
+import pagecomponents.Button;
+import pagecomponents.ImageView;
 
 /**
  * Created by chandan on 8/22/2015.
  */
 public class ProgramDetailPage extends HomePage {
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/programme_image")
-    private WebElement programImage;
+    Button buttonWatch, buttonDownload;
+    ImageView programImage;
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/button_watch")
-    private WebElement buttonWatch;
-
-    @AndroidFindBy(id = "com.bskyb.skygo:id/button_download")
-    private WebElement buttonDownload;
+    public ProgramDetailPage() {
+        buttonDownload = new Button("Download");
+        buttonWatch = new Button("Watch");
+        programImage = new ImageView("com.bskyb.skygo:id/programme_image");
+    }
 
     public Player watchProgram() {
         buttonWatch.click();
         return new Player();
-
     }
 
 }

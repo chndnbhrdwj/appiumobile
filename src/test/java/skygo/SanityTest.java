@@ -9,13 +9,37 @@ import pageobjects.HomePage;
 public class SanityTest{
 
     @Test
-    public void testIt() throws Exception{
-    new HomePage()
-            .gotToMenuListPage()
-            .goToSkyMoviesPage()
-            .clickShowcaseItem()
-            .watchProgram()
-            .videoViewDisplayed();
-
+    public void testIt() {
+        verifyNavigation();
+        verifySettingsNavigation();
     }
+
+    public void testVideoPlayer() {
+        new HomePage()
+                .gotToMenuListPage()
+                .goToSkyMoviesPage()
+                .clickShowcaseItem()
+                .watchProgram()
+                .videoViewDisplayed();
+    }
+
+    public void verifyNavigation() {
+        new HomePage()
+                .goToCatchUpPage()
+                .goToSkyBoxSetsPage()
+                .goToSkyMoviesPage()
+                .goToDownloadsPage()
+                .goToOnNowPage();
+    }
+
+    public void verifySettingsNavigation() {
+        new HomePage()
+                .gotToSettingsMainPage()
+                .goToSettingsSubMenu()
+                .goToManageDevices()
+                .goBackToOnNow()
+                .gotToSettingsMainPage();
+    }
+
+
 }

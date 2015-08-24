@@ -1,28 +1,54 @@
 package pageobjects;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import tools.Common;
+import pagecomponents.ImageView;
 
 /**
  * Created by cku04 on 17/08/2015.
  */
-public class HomePage extends Page{
+public class HomePage extends Page {
 
-    @AndroidFindBy(id="com.bskyb.skygo:id/more")
-    private WebElement settings;
+    ImageView contextMenu, search, settings;
 
-    @AndroidFindBy(id="com.bskyb.skygo:id/search")
-    private WebElement search;
+    public HomePage() {
+        contextMenu = new ImageView("com.bskyb.skygo:id/context_menu");
+        search = new ImageView("com.bskyb.skygo:id/search");
+        settings = new ImageView("com.bskyb.skygo:id/more");
 
-    @AndroidFindBy(id="com.bskyb.skygo:id/context_menu")
-    private WebElement contextMenu;
+    }
 
-    public MenuListPage gotToMenuListPage()throws Exception{
+    public MenuListPage gotToMenuListPage() {
         contextMenu.click();
         return new MenuListPage();
     }
+
+    public SettingsMainPage gotToSettingsMainPage() {
+        settings.click();
+        return new SettingsMainPage();
+    }
+
+    public OnNowPage goToOnNowPage() {
+        gotToMenuListPage().goToOnNowPage();
+        return new OnNowPage();
+    }
+
+    public CatchUpPage goToCatchUpPage() {
+        gotToMenuListPage().goToCatchUpPage();
+        return new CatchUpPage();
+    }
+
+    public SkyBoxSetsPage goToSkyBoxSetsPage() {
+        gotToMenuListPage().goToSkyBoxSetsPage();
+        return new SkyBoxSetsPage();
+    }
+
+    public SkyMoviesPage goToSkyMoviesPage() {
+        gotToMenuListPage().goToSkyMoviesPage();
+        return new SkyMoviesPage();
+    }
+
+    public DownloadsPage goToDownloadsPage() {
+        gotToMenuListPage().goToDownloadsPage();
+        return new DownloadsPage();
+    }
+
 }

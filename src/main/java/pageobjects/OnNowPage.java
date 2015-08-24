@@ -1,32 +1,21 @@
 package pageobjects;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
+import pagecomponents.TextView;
 
 /**
  * Created by cku04 on 20/08/2015.
  */
-public class OnNowPage extends HomePage {
+public class OnNowPage extends ShowCasePage {
 
-    @AndroidFindBy(xpath="//android.widget.ImageView[@resource-id='com.bskyb.skygo:id/image'][@enabled='true']")
-    private WebElement showCaseItem;
+    TextView allChannels, entertainment, sports;
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='All Channels']")
-    private WebElement allChannels;
+    public OnNowPage() {
+        allChannels = new TextView("All Channels");
+        entertainment = new TextView("Entertainment");
+        sports = new TextView("Sports");
+    }
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Entertainment']")
-    private WebElement entertainment;
-
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Movies']")
-    private WebElement movies;
-
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Sports']")
-    private WebElement sports;
-
-
-    public AllChannelsPage gotToAllChannels(){
+    public AllChannelsPage gotToAllChannels() {
         allChannels.click();
         return new AllChannelsPage();
     }

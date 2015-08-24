@@ -1,45 +1,43 @@
 package pageobjects;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import org.openqa.selenium.WebElement;
+import pagecomponents.TextView;
 
 /**
  * Created by cku04 on 20/08/2015.
  */
-public class MenuListPage extends Page{
+public class MenuListPage extends Page {
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='On Now']")
-    private WebElement onNow;
+    TextView onNow, catchUp, skyBoxSets, skyMovies, downloads;
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Catch Up']")
-    private WebElement catchUp;
+    public MenuListPage() {
+        onNow = new TextView("On Now");
+        catchUp = new TextView("Catch Up");
+        skyBoxSets = new TextView("Sky Box Sets");
+        skyMovies = new TextView("Sky Movies");
+        downloads = new TextView("Downloads");
+    }
 
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Sky Box Sets']")
-    private WebElement skyBoxSets;
-
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Sky Movies']")
-    private WebElement skyMovies;
-
-    @AndroidFindBy(xpath="//android.widget.TextView[@text='Downloads']")
-    private WebElement downloads;
-
-    public OnNowPage goToOnNowPage(){
+    public OnNowPage goToOnNowPage() {
         onNow.click();
         return new OnNowPage();
     }
-    public CatchUpPage goToCatchUpPage(){
+
+    public CatchUpPage goToCatchUpPage() {
         catchUp.click();
         return new CatchUpPage();
     }
-    public SkyBoxSetsPage goToSkyBoxSetsPage(){
+
+    public SkyBoxSetsPage goToSkyBoxSetsPage() {
         skyBoxSets.click();
         return new SkyBoxSetsPage();
     }
-    public SkyMoviesPage goToSkyMoviesPage(){
+
+    public SkyMoviesPage goToSkyMoviesPage() {
         skyMovies.click();
         return new SkyMoviesPage();
     }
-    public DownloadsPage goToDownloadsPage(){
+
+    public DownloadsPage goToDownloadsPage() {
         downloads.click();
         return new DownloadsPage();
     }

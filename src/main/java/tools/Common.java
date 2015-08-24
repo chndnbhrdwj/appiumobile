@@ -1,6 +1,5 @@
 package tools;
 
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import pageobjects.Page;
 
@@ -13,6 +12,13 @@ public class Common extends Page{
         if(element.isEnabled() && element.isDisplayed())
             element.click();
     }
+
+    public static void isElementDisplayed(WebElement... elements) {
+        for (WebElement e : elements) {
+            e.isDisplayed();
+        }
+    }
+
 
 
 }

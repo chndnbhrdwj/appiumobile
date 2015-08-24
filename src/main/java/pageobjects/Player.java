@@ -21,7 +21,7 @@ public class Player extends Page {
     @AndroidFindBy(id = "com.bskyb.skygo:id/videoview")
     private WebElement videoView;
 
-    public void videoViewDisplayed() throws Exception {
+    public void videoViewDisplayed() {
         try {
             adText.isDisplayed();
             adCountdown.isDisplayed();
