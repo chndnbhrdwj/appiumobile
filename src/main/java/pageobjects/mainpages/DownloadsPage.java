@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.mainpages;
 
 /**
  * Created by cku04 on 20/08/2015.

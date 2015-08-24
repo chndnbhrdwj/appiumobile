@@ -3,6 +3,7 @@ package pageobjects;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import pageobjects.mainpages.Page;
 
 /**
  * Created by chandan on 8/22/2015.

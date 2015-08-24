@@ -1,7 +1,8 @@
-package pageobjects;
+package pageobjects.mainpages;
 
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
+import pageobjects.ProgramDetailPage;
 
 /**
  * Created by cku04 on 20/08/2015.

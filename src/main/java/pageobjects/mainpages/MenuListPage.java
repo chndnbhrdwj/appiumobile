@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.mainpages;
 
 import pagecomponents.TextView;
 

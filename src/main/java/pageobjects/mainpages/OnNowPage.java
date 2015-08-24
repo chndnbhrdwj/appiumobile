@@ -1,6 +1,7 @@
-package pageobjects;
+package pageobjects.mainpages;
 
 import pagecomponents.TextView;
+import pageobjects.AllChannelsPage;
 
 /**
  * Created by cku04 on 20/08/2015.

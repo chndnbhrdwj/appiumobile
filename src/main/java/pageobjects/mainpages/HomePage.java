@@ -1,6 +1,9 @@
-package pageobjects;
+package pageobjects.mainpages;
 
 import pagecomponents.ImageView;
+import pageobjects.settings.SettingsMainPage;
+import pageobjects.settings.help.HelpInfoMenu;
+import pageobjects.settings.settingsmenu.SettingsSubMenuPage;
 
 /**
  * Created by cku04 on 17/08/2015.
@@ -49,6 +52,16 @@ public class HomePage extends Page {
     public DownloadsPage goToDownloadsPage() {
         gotToMenuListPage().goToDownloadsPage();
         return new DownloadsPage();
+    }
+
+    public SettingsSubMenuPage goToSettingsSubMenu() {
+        gotToSettingsMainPage().goToSettingsSubMenu();
+        return new SettingsSubMenuPage();
+    }
+
+    public HelpInfoMenu goToHelpInfoMenu() {
+        gotToSettingsMainPage().goToHelpInfoMenu();
+        return new HelpInfoMenu();
     }
 
 }

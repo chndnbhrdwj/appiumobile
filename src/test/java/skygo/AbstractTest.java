@@ -1,10 +1,7 @@
 package skygo;
 
-import io.appium.java_client.AppiumDriver;
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import pageobjects.Page;
+import pageobjects.mainpages.Page;
 
 /**
  * Created by cku04 on 20/08/2015.

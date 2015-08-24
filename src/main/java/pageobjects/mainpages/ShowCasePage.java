@@ -1,4 +1,4 @@
-package pageobjects;
+package pageobjects.mainpages;
 
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
@@ -15,6 +15,6 @@ public class ShowCasePage extends HomePage {
     public ShowCasePage() {
         showCaseItem = new ImageView("com.bskyb.skygo:id/image");
         programName = new Element().elementByResourceId("com.bskyb.skygo:id/program_title");
-        System.out.println("Program on screen is: " + programName.getAttribute("text"));
+        //System.out.println("Program on screen is: " + programName.getAttribute("text"));
     }
 }
