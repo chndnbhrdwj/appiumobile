@@ -40,10 +40,11 @@ public class Page {
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         } catch (Exception e) {
             System.out.println("The driver was not initialized successfully or Homepage took more than 10 secs to load.");
+            System.exit(1);
         }
         return driver;
     }

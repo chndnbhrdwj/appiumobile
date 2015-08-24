@@ -11,7 +11,7 @@ public class Button extends Page {
     WebElement element;
 
     public Button(String text) {
-        element = driver.findElementByXPath("//android.widget.TextView[@text='" + text + "']");
+        element = driver.findElementByXPath("//android.widget.Button[@text='" + text + "']");
     }
 
     public void click() {

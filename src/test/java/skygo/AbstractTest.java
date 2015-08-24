@@ -10,11 +10,11 @@ public class AbstractTest extends Page{
 
 
     @AfterClass
-    public void stopDriver(){
+    public static void stopDriver() {
         stop();
     }
 
-    public void stop(){
+    public static void stop() {
         driver.quit();
     }
 }

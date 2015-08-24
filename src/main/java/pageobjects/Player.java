@@ -1,8 +1,8 @@
 package pageobjects;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import pagecomponents.Element;
 import pageobjects.mainpages.Page;
 
 /**
@@ -10,26 +10,27 @@ import pageobjects.mainpages.Page;
  */
 public class Player extends Page {
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/video")
-    private WebElement video;
+    WebElement adCountdown, adText, videoView;
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/adCountdown")
-    private WebElement adCountdown;
+    public Player() {
+        videoView = new Element().elementByResourceId("com.bskyb.skygo:id/videoview");
+    }
 
-    @AndroidFindBy(id = "com.bskyb.skygo:id/adtext")
-    private WebElement adText;
-
-    @AndroidFindBy(id = "com.bskyb.skygo:id/videoview")
-    private WebElement videoView;
-
-    public void videoViewDisplayed() {
+    public Player videoViewDisplayed() {
         try {
+            adCountdown = new Element().elementByResourceId("com.bskyb.skygo:id/adCountdown");
+            adText = new Element().elementByResourceId("com.bskyb.skygo:id/adtext");
             adText.isDisplayed();
             adCountdown.isDisplayed();
-            video.isDisplayed();
         } catch (NoSuchElementException e) {
             System.out.println("Advert was not displayed for this video stream");
         }
         videoView.isDisplayed();
+        return this;
+    }
+
+    public ProgramDetailPage backToProgramDetails() {
+        pressBack();
+        return new ProgramDetailPage();
     }
 }

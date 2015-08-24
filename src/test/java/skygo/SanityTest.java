@@ -2,11 +2,12 @@ package skygo;
 
 import org.junit.Test;
 import pageobjects.mainpages.HomePage;
+import pageobjects.mainpages.OnNowPage;
 
 /**
  * Created by cku04 on 17/08/2015.
  */
-public class SanityTest{
+public class SanityTest extends AbstractTest {
 
     @Test
     public void testIt() {
@@ -14,15 +15,22 @@ public class SanityTest{
         verifyHelpInfoNavigation();
         verifySettingsSubMenuNavigation();
         verifySettingsNavigation();
+        verifyVodVideoPlayer();
     }
 
-    public void testVideoPlayer() {
-        new HomePage()
-                .gotToMenuListPage()
+    public void verifyVodVideoPlayer() {
+        new OnNowPage()
                 .goToSkyMoviesPage()
                 .clickShowcaseItem()
                 .watchProgram()
-                .videoViewDisplayed();
+                .videoViewDisplayed()
+                .backToProgramDetails()
+                .goToOnNowPage()
+                .clickShowcaseItem()
+                .watchProgram()
+                .videoViewDisplayed()
+                .backToProgramDetails()
+                .goToOnNowPage();
     }
 
     public void verifyNavigation() {
