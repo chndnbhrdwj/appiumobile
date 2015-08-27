@@ -1,5 +1,6 @@
 package pageobjects.mainpages;
 
+import core.SkygoProperties;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.log4j.Logger;
@@ -8,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import tools.Charles;
+import tools.Common;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -18,14 +21,20 @@ import java.util.concurrent.TimeUnit;
 public class Page {
     public static AppiumDriver driver;
     public static Logger log;
+    protected static SkygoProperties props;
+
 
     public Page() {
-        driver = getInstance();
+        props = new SkygoProperties();
+        Charles.stopCharlesRecording();
+        Common.startRecordingClearCharlesSession();
         log = Logger.getLogger(Page.class);
+        log.info("Started charles recording.");
+        driver = getInstance();
     }
 
     protected static WebElement waitForElement(WebElement element) {
-        new WebDriverWait(driver, 10000).until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(driver, 3000).until(ExpectedConditions.visibilityOf(element));
         return element;
     }
 
@@ -40,10 +49,10 @@ public class Page {
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         } catch (Exception e) {
-            System.out.println("The driver was not initialized successfully or Homepage took more than 10 secs to load.");
+            log.info("The driver was not initialized successfully or Homepage took more than 10 secs to load.");
             System.exit(1);
         }
         return driver;

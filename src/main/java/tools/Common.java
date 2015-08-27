@@ -8,6 +8,7 @@ import pageobjects.mainpages.Page;
  */
 public class Common extends Page{
 
+
     public static void clickIfEnabledAndDisplayed(WebElement element){
         if(element.isEnabled() && element.isDisplayed())
             element.click();
@@ -19,6 +20,14 @@ public class Common extends Page{
         }
     }
 
+    public static void startRecordingClearCharlesSession() {
+        Charles.startCharlesRecording();
+        Charles.clearCharlesSession();
 
+    }
 
+    public static String stopRecordingParseCharlesSession(String xpath) {
+        Charles.stopCharlesRecording();
+        return Charles.parseCharlesSession(xpath);
+    }
 }

@@ -15,7 +15,7 @@ public class SettingsMainPage extends SettingsAbstract {
         settings = new TextView("Settings");
         help = new TextView("Help & Info");
         skyAccount = new TextView("Sky Account");
-        config = new TextView("Select config");
+//        config = new TextView("Select config");
     }
 
     public SettingsSubMenuPage goToSettingsSubMenu() {
@@ -33,10 +33,13 @@ public class SettingsMainPage extends SettingsAbstract {
         return new SkyAccount();
     }
 
+    //Not available on signed build
+/*
     public SelectConfig goToConfig() {
         config.click();
         return new SelectConfig();
     }
+*/
 
 
 

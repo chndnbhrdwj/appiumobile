@@ -1,5 +1,6 @@
-package skygo;
+package test.skygo;
 
+import core.Testcase;
 import org.junit.Test;
 import pageobjects.mainpages.HomePage;
 import pageobjects.mainpages.OnNowPage;
@@ -7,7 +8,7 @@ import pageobjects.mainpages.OnNowPage;
 /**
  * Created by cku04 on 17/08/2015.
  */
-public class SanityTest extends AbstractTest {
+public class SanityTest extends Testcase {
 
     @Test
     public void testIt() {
@@ -48,7 +49,7 @@ public class SanityTest extends AbstractTest {
                 .goToSkyAccount()
                 .goBackToOnNow()
                 .gotToSettingsMainPage()
-                .goToConfig()
+                        //.goToConfig()
                 .goBackToOnNow();
     }
 

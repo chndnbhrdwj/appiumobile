@@ -1,4 +1,4 @@
-package skygo;
+package test.skygo;
 
 import org.junit.AfterClass;
 import pageobjects.mainpages.Page;
@@ -17,4 +17,5 @@ public class AbstractTest extends Page{
     public static void stop() {
         driver.quit();
     }
+
 }
