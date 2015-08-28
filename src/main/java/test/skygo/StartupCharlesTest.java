@@ -13,11 +13,15 @@ import java.util.List;
  */
 public class StartupCharlesTest extends Testcase {
 
-    String assetServer = "assets.mobile-tv.sky.com";
-    String genresFileName = "/skygo/config/android/genres.json";
-    String marketingFileName = "/skygo/config/android/Marketing/Marketing.json";
-    String configFileName = "/skygo/config/android/config/Play-" + props.getPropertyValue("AppVersion") + ".json";
     List<String> assetFiles;
+    String assetServer = "assets.mobile-tv.sky.com";
+    String path = "/skygo/config/android";
+    String termsConditions = path + "/help/Terms.html";
+    String genres = path + "/genres.json";
+    String marketing = path + "/Marketing/Marketing.json";
+    String extra = path + "/help/faq-download-android.html";
+    String faq = path + "/help/faq-android-singleapp.html";
+    String config = path + "/config/Play-" + props.getPropertyValue("AppVersion") + ".json";
 
     private List<String> getAssetFiles(String resource) {
         return Common.stopRecordingParseCharlesSession(resource);
@@ -31,24 +35,42 @@ public class StartupCharlesTest extends Testcase {
 
     @Test
     public void testCharles() {
-        verifyConfigFile();
-        verifyGenresFile();
-        verifyMarketingFile();
+        verifyConfig();
+        verifyGenres();
+        verifyMarketing();
+        verifyFaq();
+        verifyTermsConditions();
+        verifyExtras();
     }
 
-    public void verifyConfigFile() {
-        Assert.assertTrue("Config file version was not as expected: ",
-                assetFiles.contains(configFileName));
+    public void verifyConfig() {
+        Assert.assertTrue("Config file not found as expected: ",
+                assetFiles.contains(config));
     }
 
-    public void verifyGenresFile() {
-        Assert.assertTrue("Genres file was not as expected: ",
-                assetFiles.contains(genresFileName));
+    public void verifyGenres() {
+        Assert.assertTrue("Genres file not found as expected: ",
+                assetFiles.contains(genres));
     }
 
-    public void verifyMarketingFile() {
-        Assert.assertTrue("Marketing file was not as expected: ",
-                assetFiles.contains(marketingFileName));
+    public void verifyMarketing() {
+        Assert.assertTrue("Marketing file not found as expected: ",
+                assetFiles.contains(marketing));
+    }
+
+    public void verifyFaq() {
+        Assert.assertTrue("Faq was not found as expected: ",
+                assetFiles.contains(faq));
+    }
+
+    public void verifyTermsConditions() {
+        Assert.assertTrue("Terms and Conditions was not found as expected: ",
+                assetFiles.contains(termsConditions));
+    }
+
+    public void verifyExtras() {
+        Assert.assertTrue("Extras not found as expected: ",
+                assetFiles.contains(extra));
     }
 
 }

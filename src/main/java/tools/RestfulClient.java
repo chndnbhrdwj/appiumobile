@@ -23,24 +23,56 @@ public class RestfulClient {
 
     HttpURLConnection conn;
     Document doc;
+    XPath xpath;
     List<String> assetFiles;
 
     public List<String> get(String endpoint, String xpathExpression) {
-        doc = getDocument(endpoint);
         assetFiles = new ArrayList<String>();
-        try {
-            XPath xpath = XPathFactory.newInstance().newXPath();
-            NodeList nl = (NodeList) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODESET);
-            for (int n = 0; n < nl.getLength(); n++) {
-                Node node = nl.item(n);
-                assetFiles.add(node.getParentNode().getAttributes().getNamedItem("path").getNodeValue());
-            }
-        } catch (XPathExpressionException e) {
-            e.getMessage();
+        NodeList nl = getNodeList(endpoint, xpathExpression);
+        for (int n = 0; n < nl.getLength(); n++) {
+            Node node = nl.item(n);
+            assetFiles.add(node.getParentNode().getAttributes().getNamedItem("path").getNodeValue());
         }
         return assetFiles;
     }
 
+
+    public String getFreeWheelResponseBody(String endpoint) {
+        String body = "";
+        String xpathExpression = "//transaction[contains(@host,'fwmrm.net')]/response/body";
+        try {
+            doc = getDocument(endpoint);
+            xpath = XPathFactory.newInstance().newXPath();
+            body = xpath.compile(xpathExpression).evaluate(doc);
+        } catch (XPathExpressionException e) {
+            e.getMessage();
+        }
+        return body;
+    }
+
+    public Node getNode(String endpoint, String xpathExpression) {
+        Node node = null;
+        try {
+            doc = getDocument(endpoint);
+            xpath = XPathFactory.newInstance().newXPath();
+            node = (Node) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODE);
+        } catch (XPathExpressionException e) {
+            e.getMessage();
+        }
+        return node;
+    }
+
+    public NodeList getNodeList(String endpoint, String xpathExpression) {
+        NodeList nodeList = null;
+        try {
+            doc = getDocument(endpoint);
+            xpath = XPathFactory.newInstance().newXPath();
+            nodeList = (NodeList) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+            e.getMessage();
+        }
+        return nodeList;
+    }
 
     public Document getDocument(String endpoint) {
         try {
