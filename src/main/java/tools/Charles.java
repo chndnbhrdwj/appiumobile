@@ -1,5 +1,7 @@
 package tools;
 
+import java.util.List;
+
 /**
  * Created by cku04 on 26/08/2015.
  */
@@ -23,7 +25,7 @@ public class Charles {
         return client.openConnection(clearSession);
     }
 
-    public static String parseCharlesSession(String xpath) {
+    public static List<String> parseCharlesSession(String xpath) {
         String endpoint = charlesHost + "session/export-xml";
         return client.get(endpoint, xpath);
     }

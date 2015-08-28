@@ -3,6 +3,8 @@ package tools;
 import org.openqa.selenium.WebElement;
 import pageobjects.mainpages.Page;
 
+import java.util.List;
+
 /**
  * Created by cku04 on 18/08/2015.
  */
@@ -26,7 +28,7 @@ public class Common extends Page{
 
     }
 
-    public static String stopRecordingParseCharlesSession(String xpath) {
+    public static List<String> stopRecordingParseCharlesSession(String xpath) {
         Charles.stopCharlesRecording();
         return Charles.parseCharlesSession(xpath);
     }

@@ -9,11 +9,12 @@ import java.util.Properties;
  * Created by cku04 on 26/08/2015.
  */
 public class SkygoProperties extends Properties {
+
     static OutputStream output = null;
     private static String propertyFile = "skygo.properties";
     private static Properties properties = new Properties();
 
-    protected static String getPropertyValue(String property) {
+    public String getPropertyValue(String property) {
         String value = "";
         try {
             properties.load(new FileInputStream(propertyFile));
@@ -25,7 +26,7 @@ public class SkygoProperties extends Properties {
         return value;
     }
 
-    protected static void putProperty(String property, String value) {
+    public void putProperty(String property, String value) {
         try {
             output = new FileOutputStream(propertyFile);
             properties.setProperty(property, value);

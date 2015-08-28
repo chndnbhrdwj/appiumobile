@@ -1,14 +1,20 @@
 package tools;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by cku04 on 21/08/2015.
@@ -17,9 +23,26 @@ public class RestfulClient {
 
     HttpURLConnection conn;
     Document doc;
+    List<String> assetFiles;
 
-    public String get(String endpoint, String xpathExpression) {
-        String value = "";
+    public List<String> get(String endpoint, String xpathExpression) {
+        doc = getDocument(endpoint);
+        assetFiles = new ArrayList<String>();
+        try {
+            XPath xpath = XPathFactory.newInstance().newXPath();
+            NodeList nl = (NodeList) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODESET);
+            for (int n = 0; n < nl.getLength(); n++) {
+                Node node = nl.item(n);
+                assetFiles.add(node.getParentNode().getAttributes().getNamedItem("path").getNodeValue());
+            }
+        } catch (XPathExpressionException e) {
+            e.getMessage();
+        }
+        return assetFiles;
+    }
+
+
+    public Document getDocument(String endpoint) {
         try {
             if (openConnection(endpoint)) {
                 InputStream is = conn.getInputStream();
@@ -30,15 +53,13 @@ public class RestfulClient {
 
                 doc = dBuilder.parse(is);
             }
-            XPath xpath = XPathFactory.newInstance().newXPath();
-            value = xpath.compile(xpathExpression).evaluate(doc);
-            conn.disconnect();
         } catch (Exception e) {
             e.getMessage();
+        } finally {
+            conn.disconnect();
         }
-        return value;
+        return doc;
     }
-
 
     public boolean openConnection(String endpoint) {
         try {
@@ -49,7 +70,6 @@ public class RestfulClient {
                 throw new RuntimeException("Failed : with error code : "
                         + conn.getResponseCode());
             }
-            //conn.disconnect();
         } catch (Exception e) {
             e.getMessage();
             return false;
