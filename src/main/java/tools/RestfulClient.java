@@ -28,7 +28,7 @@ public class RestfulClient {
 
     public List<String> get(String endpoint, String xpathExpression) {
         assetFiles = new ArrayList<String>();
-        NodeList nl = getNodeList(endpoint, xpathExpression);
+        NodeList nl = getNodeList(null, endpoint, xpathExpression);
         for (int n = 0; n < nl.getLength(); n++) {
             Node node = nl.item(n);
             assetFiles.add(node.getParentNode().getAttributes().getNamedItem("path").getNodeValue());
@@ -50,10 +50,10 @@ public class RestfulClient {
         return body;
     }
 
-    public Node getNode(String endpoint, String xpathExpression) {
+    public Node getNode(Document document, String endpoint, String xpathExpression) {
         Node node = null;
         try {
-            doc = getDocument(endpoint);
+            doc = document == null ? getDocument(endpoint) : document;
             xpath = XPathFactory.newInstance().newXPath();
             node = (Node) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODE);
         } catch (XPathExpressionException e) {
@@ -62,10 +62,10 @@ public class RestfulClient {
         return node;
     }
 
-    public NodeList getNodeList(String endpoint, String xpathExpression) {
+    public NodeList getNodeList(Document document, String endpoint, String xpathExpression) {
         NodeList nodeList = null;
         try {
-            doc = getDocument(endpoint);
+            doc = document == null ? getDocument(endpoint) : document;
             xpath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODESET);
         } catch (XPathExpressionException e) {
