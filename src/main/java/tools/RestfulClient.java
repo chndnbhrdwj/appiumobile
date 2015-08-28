@@ -13,8 +13,6 @@ import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by cku04 on 21/08/2015.
@@ -24,30 +22,10 @@ public class RestfulClient {
     HttpURLConnection conn;
     Document doc;
     XPath xpath;
-    List<String> assetFiles;
 
-    public List<String> get(String endpoint, String xpathExpression) {
-        assetFiles = new ArrayList<String>();
-        NodeList nl = getNodeList(null, endpoint, xpathExpression);
-        for (int n = 0; n < nl.getLength(); n++) {
-            Node node = nl.item(n);
-            assetFiles.add(node.getParentNode().getAttributes().getNamedItem("path").getNodeValue());
-        }
-        return assetFiles;
-    }
-
-
-    public String getFreeWheelResponseBody(String endpoint) {
-        String body = "";
-        String xpathExpression = "//transaction[contains(@host,'fwmrm.net')]/response/body";
-        try {
-            doc = getDocument(endpoint);
-            xpath = XPathFactory.newInstance().newXPath();
-            body = xpath.compile(xpathExpression).evaluate(doc);
-        } catch (XPathExpressionException e) {
-            e.getMessage();
-        }
-        return body;
+    public NodeList getAssets(String endpoint, String xpathExpression) {
+        NodeList nl = getNodeList(doc, endpoint, xpathExpression);
+        return nl;
     }
 
     public Node getNode(Document document, String endpoint, String xpathExpression) {

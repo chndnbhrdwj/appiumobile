@@ -12,8 +12,11 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-        SanityTest.class,
-        StartupCharlesTest.class
+        //HelpInfoNavigation.class,
+        //StartupCharlesTest.class,
+        VideoPlayerTest.class,
+        FreeWheelTest.class
+
 
 })
 

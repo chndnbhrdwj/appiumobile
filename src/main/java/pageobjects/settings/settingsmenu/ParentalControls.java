@@ -9,9 +9,17 @@ import pageobjects.settings.SettingsAbstract;
  */
 public class ParentalControls extends SettingsAbstract {
 
-    WebElement signInButton;
+    WebElement signInButton, label;
 
     public ParentalControls() {
-        signInButton = new Element().elementByXpath("//android.widget.Button[@content-desc='Sign in']");
+        checkPage();
+    }
+
+    private void checkPage() {
+        try {
+            label = new Element().elementByXpath("//android.view.View[@content-desc='My settings']");
+        } catch (Exception e) {
+            signInButton = new Element().elementByXpath("//android.widget.Button[@content-desc='Sign in']");
+        }
     }
 }

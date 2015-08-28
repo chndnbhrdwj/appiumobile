@@ -26,15 +26,12 @@ public class Page {
 
     public Page() {
         props = new SkygoProperties();
-        Charles.stopCharlesRecording();
-        Common.startRecordingClearCharlesSession();
         log = Logger.getLogger(Page.class);
-        log.info("Started charles recording.");
         driver = getInstance();
     }
 
     protected static WebElement waitForElement(WebElement element) {
-        new WebDriverWait(driver, 10000).until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(driver, 60000).until(ExpectedConditions.visibilityOf(element));
         return element;
     }
 
@@ -49,10 +46,13 @@ public class Page {
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            Charles.stopCharlesRecording();
+            Common.startRecordingClearCharlesSession();
+            log.info("Started charles recording.");
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
             waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         } catch (Exception e) {
-            log.info("The driver was not initialized successfully or Homepage took more than 20 secs to load.");
+            log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");
             System.exit(1);
         }
         return driver;

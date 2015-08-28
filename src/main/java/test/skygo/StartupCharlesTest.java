@@ -1,11 +1,16 @@
 package test.skygo;
 
 import core.Testcase;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import tools.Charles;
 import tools.Common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +18,7 @@ import java.util.List;
  */
 public class StartupCharlesTest extends Testcase {
 
-    List<String> assetFiles;
+    List<String> assetsList;
     String assetServer = "assets.mobile-tv.sky.com";
     String path = "/skygo/config/android";
     String termsConditions = path + "/help/Terms.html";
@@ -23,54 +28,69 @@ public class StartupCharlesTest extends Testcase {
     String faq = path + "/help/faq-android-singleapp.html";
     String config = path + "/config/Play-" + props.getPropertyValue("AppVersion") + ".json";
 
-    private List<String> getAssetFiles(String resource) {
+    private NodeList getAssetFiles(String resource) {
         return Common.stopRecordingParseCharlesSession(resource);
     }
 
+
     @Before
     public void setUp() {
+        assetsList = new ArrayList();
         String assetServerNodes = "//transaction[@host='" + assetServer + "']/response[@status='200']";
-        assetFiles = getAssetFiles(assetServerNodes);
+        NodeList assetFiles = getAssetFiles(assetServerNodes);
+        if (assetFiles.getLength() < 1) {
+            System.out.println("Asset document did not returned the filenames.");
+        }
+        for (int n = 0; n < assetFiles.getLength(); n++) {
+            Node node = assetFiles.item(n);
+            assetsList.add(node.getParentNode().getAttributes().getNamedItem("path").getNodeValue());
+        }
     }
 
     @Test
-    public void testCharles() {
+    public void testAssets() {
+        verifyExtras();
+        verifyFaq();
+        verifyTermsConditions();
         verifyConfig();
         verifyGenres();
         verifyMarketing();
-        verifyFaq();
-        verifyTermsConditions();
-        verifyExtras();
     }
 
     public void verifyConfig() {
         Assert.assertTrue("Config file not found as expected: ",
-                assetFiles.contains(config));
+                assetsList.contains(config));
     }
 
     public void verifyGenres() {
         Assert.assertTrue("Genres file not found as expected: ",
-                assetFiles.contains(genres));
+                assetsList.contains(genres));
     }
 
     public void verifyMarketing() {
         Assert.assertTrue("Marketing file not found as expected: ",
-                assetFiles.contains(marketing));
+                assetsList.contains(marketing));
     }
 
     public void verifyFaq() {
         Assert.assertTrue("Faq was not found as expected: ",
-                assetFiles.contains(faq));
+                assetsList.contains(faq));
     }
 
     public void verifyTermsConditions() {
         Assert.assertTrue("Terms and Conditions was not found as expected: ",
-                assetFiles.contains(termsConditions));
+                assetsList.contains(termsConditions));
     }
 
     public void verifyExtras() {
         Assert.assertTrue("Extras not found as expected: ",
-                assetFiles.contains(extra));
+                assetsList.contains(extra));
     }
+
+    @After
+    public void tearOff() {
+        Charles.stopCharlesRecording();
+    }
+
 
 }

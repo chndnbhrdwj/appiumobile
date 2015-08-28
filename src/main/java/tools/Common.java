@@ -1,9 +1,8 @@
 package tools;
 
 import org.openqa.selenium.WebElement;
+import org.w3c.dom.NodeList;
 import pageobjects.mainpages.Page;
-
-import java.util.List;
 
 /**
  * Created by cku04 on 18/08/2015.
@@ -28,7 +27,7 @@ public class Common extends Page{
 
     }
 
-    public static List<String> stopRecordingParseCharlesSession(String xpath) {
+    public static NodeList stopRecordingParseCharlesSession(String xpath) {
         Charles.stopCharlesRecording();
         return Charles.parseCharlesSession(xpath);
     }

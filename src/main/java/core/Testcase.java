@@ -1,6 +1,5 @@
 package core;
 
-import org.junit.After;
 import pageobjects.mainpages.Page;
 
 /**
@@ -8,10 +7,5 @@ import pageobjects.mainpages.Page;
  */
 public class Testcase extends Page {
 
-
-    @After
-    public void stopDriver() {
-        driver.quit();
-    }
 
 }
