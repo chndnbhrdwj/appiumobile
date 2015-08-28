@@ -20,7 +20,7 @@ public class Charles {
     }
 
     public static void stopCharlesRecording() {
-        String recordingStop = charlesHost + CharlesEndpoints.START_RECORDING;
+        String recordingStop = charlesHost + CharlesEndpoints.STOP_RECORDING;
         client.openConnection(recordingStop);
     }
 
