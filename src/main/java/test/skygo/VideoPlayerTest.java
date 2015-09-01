@@ -30,11 +30,11 @@ public class VideoPlayerTest extends Testcase {
                 .watchProgram()
                 .videoViewDisplayed()
                 .backToProgramDetails()
-                .goToOnNowPage();
-                /*.clickShowcaseItem()
+                .goToOnNowPage()
+                .clickShowcaseItem()
                 .watchProgram()
                 .videoViewDisplayed()
                 .backToProgramDetails()
-                .goToOnNowPage();*/
+                .goToOnNowPage();
     }
 }

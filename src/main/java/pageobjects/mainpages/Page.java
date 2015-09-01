@@ -49,7 +49,7 @@ public class Page {
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");
-            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
             waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         } catch (Exception e) {
             log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");

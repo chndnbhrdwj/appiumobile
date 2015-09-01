@@ -1,5 +1,6 @@
 package tools;
 
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -32,6 +33,11 @@ public class Charles {
     public static NodeList parseCharlesSession(String xpath) {
         String endpoint = charlesHost + CharlesEndpoints.GET_SESSION;
         return client.getAssets(endpoint, xpath);
+    }
+
+    public static Node parseCharlesForFreeWheel(String xpath, String bodyXpathExpression) {
+        String endpoint = charlesHost + CharlesEndpoints.GET_SESSION;
+        return client.getFreeWheelNode(null, endpoint, xpath, bodyXpathExpression);
     }
 
     public enum CharlesEndpoints {

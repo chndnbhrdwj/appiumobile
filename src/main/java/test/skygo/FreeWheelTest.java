@@ -2,34 +2,37 @@ package test.skygo;
 
 import core.Testcase;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import tools.Charles;
-import tools.Common;
+import tools.StackTraceInfo;
 
 /**
  * Created by cku04 on 27/08/2015.
  */
 public class FreeWheelTest extends Testcase {
 
-    String xpathExpression = "//temporalAdSlot[@adUnit='Standard Pre']";
+    String responseBodyExpression = "//transaction[contains(@host,'fwmrm.net')]/response/body/text()";
+    String preRollXpathExpression = "//temporalAdSlot[@adUnit='Standard Pre']";
+    String standardMidXpathExpression = "//temporalAdSlot[@adUnit='Standard Mid']";
 
-    @Before
-    public void setUp() throws Exception {
-        NodeList list = Common.stopRecordingParseCharlesSession(xpathExpression);
-        for (int f = 0; f < list.getLength(); f++) {
-            Node node = list.item(f);
-            log.info(node.getNodeName() + " " + node.getAttributes().getNamedItem("timePositionClass"));
-        }
+    @Test
+    public void verifyFreeWheelPreRollCall() {
+        log.info(StackTraceInfo.getCurrentMethodName());
+        Node node = Charles.parseCharlesForFreeWheel(responseBodyExpression, preRollXpathExpression);
+        String timePosition = node.getAttributes().getNamedItem("timePositionClass").getTextContent();
+        Assert.assertTrue("PreRoll ads were not found in Charles response.", timePosition.equals("preroll"));
     }
 
     @Test
-    public void testCharles() {
-        log.info("In Test");
-        
+    public void verifyFreeWheelMidRollCall() {
+        log.info(StackTraceInfo.getCurrentMethodName());
+        Node node = Charles.parseCharlesForFreeWheel(responseBodyExpression, standardMidXpathExpression);
+        String timePosition = node.getAttributes().getNamedItem("timePositionClass").getTextContent();
+        Assert.assertTrue("MidRoll ads were not found in Charles response.", timePosition.equalsIgnoreCase("midroll"));
     }
+
 
     @After
     public void tearOff() {

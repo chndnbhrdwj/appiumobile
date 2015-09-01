@@ -3,6 +3,7 @@ package tools;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,6 +12,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -28,10 +30,23 @@ public class RestfulClient {
         return nl;
     }
 
+    public Document convertStringToDocument(String xmlStr) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+        try {
+            builder = factory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(xmlStr)));
+            return doc;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Node getNode(Document document, String endpoint, String xpathExpression) {
         Node node = null;
         try {
-            doc = document == null ? getDocument(endpoint) : document;
+            doc = (document == null) ? getDocument(endpoint) : document;
             xpath = XPathFactory.newInstance().newXPath();
             node = (Node) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODE);
         } catch (XPathExpressionException e) {
@@ -40,16 +55,36 @@ public class RestfulClient {
         return node;
     }
 
+    public String getText(Document document, String endpoint, String xpathExpression) {
+        String body = null;
+        try {
+            doc = (document == null) ? getDocument(endpoint) : document;
+            xpath = XPathFactory.newInstance().newXPath();
+            body = xpath.compile(xpathExpression).evaluate(doc);
+        } catch (XPathExpressionException e) {
+            e.getMessage();
+        }
+        return body;
+    }
+
     public NodeList getNodeList(Document document, String endpoint, String xpathExpression) {
         NodeList nodeList = null;
         try {
-            doc = document == null ? getDocument(endpoint) : document;
+            doc = (document == null) ? getDocument(endpoint) : document;
             xpath = XPathFactory.newInstance().newXPath();
             nodeList = (NodeList) xpath.compile(xpathExpression).evaluate(doc, XPathConstants.NODESET);
         } catch (XPathExpressionException e) {
             e.getMessage();
         }
         return nodeList;
+    }
+
+    public Node getFreeWheelNode(Document document, String endpoint, String xpathExpression, String bodyXpathExpression) {
+        Node node = null;
+        doc = (document == null) ? getDocument(endpoint) : document;
+        String body = getText(doc, endpoint, xpathExpression);
+        node = getNode(convertStringToDocument(body), endpoint, bodyXpathExpression);
+        return node;
     }
 
     public Document getDocument(String endpoint) {

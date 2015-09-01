@@ -1,15 +1,15 @@
 package test.skygo;
 
-import org.junit.AfterClass;
+import org.junit.After;
 import pageobjects.mainpages.Page;
 
 /**
  * Created by cku04 on 20/08/2015.
  */
-public class AbstractTest extends Page{
+public class AbstractTest extends Page {
 
 
-    @AfterClass
+    @After
     public static void stopDriver() {
         stop();
     }
