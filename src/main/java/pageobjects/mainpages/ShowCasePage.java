@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
 import pagecomponents.ImageView;
 import pageobjects.ProgramDetailPage;
+import tools.StackTraceInfo;
 
 
 /**
@@ -20,6 +21,7 @@ public class ShowCasePage extends HomePage {
     }
 
     public ProgramDetailPage clickShowcaseItem() {
+        log.info(StackTraceInfo.getCurrentMethodName());
         showCaseItem.click();
         return new ProgramDetailPage();
     }

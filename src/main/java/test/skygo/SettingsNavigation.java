@@ -3,6 +3,7 @@ package test.skygo;
 import core.Testcase;
 import org.junit.Test;
 import pageobjects.mainpages.HomePage;
+import tools.StackTraceInfo;
 
 /**
  * Created by cku04 on 17/08/2015.
@@ -19,6 +20,7 @@ public class SettingsNavigation extends Testcase {
     }
 
     public void verifySettingsNavigation() {
+        log.info(StackTraceInfo.getCurrentMethodName());
         new HomePage()
                 .gotToSettingsMainPage()
                 .goToSkyAccount()
@@ -29,6 +31,7 @@ public class SettingsNavigation extends Testcase {
     }
 
     public void verifySettingsSubMenuNavigation() {
+        log.info(StackTraceInfo.getCurrentMethodName());
         new HomePage()
                 .goToSettingsSubMenu()
                 .goToManageDevices()
@@ -45,6 +48,7 @@ public class SettingsNavigation extends Testcase {
     }
 
     public void verifyNavigation() {
+        log.info(StackTraceInfo.getCurrentMethodName());
         new HomePage()
                 .goToCatchUpPage()
                 .goToSkyBoxSetsPage()

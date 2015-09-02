@@ -79,12 +79,11 @@ public class RestfulClient {
         return nodeList;
     }
 
-    public Node getFreeWheelNode(Document document, String endpoint, String xpathExpression, String bodyXpathExpression) {
-        Node node = null;
+    public NodeList getFreeWheelNode(Document document, String endpoint, String xpathExpression, String bodyXpathExpression) {
+        NodeList nodeList = null;
         doc = (document == null) ? getDocument(endpoint) : document;
         String body = getText(doc, endpoint, xpathExpression);
-        node = getNode(convertStringToDocument(body), endpoint, bodyXpathExpression);
-        return node;
+        return (NodeList) getNode(convertStringToDocument(body), endpoint, bodyXpathExpression);
     }
 
     public Document getDocument(String endpoint) {

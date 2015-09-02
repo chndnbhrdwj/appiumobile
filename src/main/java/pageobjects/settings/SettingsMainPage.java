@@ -1,15 +1,19 @@
 package pageobjects.settings;
 
+import org.openqa.selenium.NoSuchElementException;
 import pagecomponents.TextView;
+import pageobjects.mainpages.SignIn;
+import pageobjects.mainpages.SignOut;
 import pageobjects.settings.help.HelpInfoMenu;
 import pageobjects.settings.settingsmenu.SettingsSubMenuPage;
+import tools.StackTraceInfo;
 
 /**
  * Created by chandan on 8/24/2015.
  */
 public class SettingsMainPage extends SettingsAbstract {
 
-    TextView settings, help, skyAccount, config;
+    TextView signin, signout, settings, help, skyAccount, config;
 
     public SettingsMainPage() {
         settings = new TextView("Settings");
@@ -18,7 +22,32 @@ public class SettingsMainPage extends SettingsAbstract {
 //        config = new TextView("Select config");
     }
 
+    public SignIn clickSignIn() {
+        try {
+            signin = new TextView("Sign in");
+            signin.click();
+        } catch (NoSuchElementException e) {
+            log.info("User was already logged in.");
+            pressBack();
+            return null;
+        }
+        return new SignIn();
+    }
+
+    public SignOut clickSignOut() {
+        try {
+            signout = new TextView("Sign Out");
+            signout.click();
+        } catch (NoSuchElementException e) {
+            log.info("User was not logged in.");
+            pressBack();
+            return null;
+        }
+        return new SignOut();
+    }
+
     public SettingsSubMenuPage goToSettingsSubMenu() {
+        log.info(StackTraceInfo.getCurrentMethodName());
         settings.click();
         return new SettingsSubMenuPage();
     }
@@ -29,6 +58,7 @@ public class SettingsMainPage extends SettingsAbstract {
     }
 
     public SkyAccount goToSkyAccount() {
+        log.info(StackTraceInfo.getCurrentMethodName());
         skyAccount.click();
         return new SkyAccount();
     }

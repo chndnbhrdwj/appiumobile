@@ -22,6 +22,7 @@ public class Page {
     public static AppiumDriver driver;
     public static Logger log;
     protected static SkygoProperties props;
+    protected boolean signedIn;
 
 
     public Page() {
@@ -31,7 +32,7 @@ public class Page {
     }
 
     protected static WebElement waitForElement(WebElement element) {
-        new WebDriverWait(driver, 60000).until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(driver, 120000).until(ExpectedConditions.visibilityOf(element));
         return element;
     }
 
@@ -49,7 +50,7 @@ public class Page {
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");
-            driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         } catch (Exception e) {
             log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");

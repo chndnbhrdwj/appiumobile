@@ -3,8 +3,10 @@ package test.skygo;
 import core.Testcase;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import tools.Charles;
 import tools.StackTraceInfo;
 
@@ -13,25 +15,44 @@ import tools.StackTraceInfo;
  */
 public class FreeWheelTest extends Testcase {
 
+    Node preRollNode;
+    Node midRollNode;
     String responseBodyExpression = "//transaction[contains(@host,'fwmrm.net')]/response/body/text()";
-    String preRollXpathExpression = "//temporalAdSlot[@adUnit='Standard Pre']";
-    String standardMidXpathExpression = "//temporalAdSlot[@adUnit='Standard Mid']";
+    String xpathExpression = "//temporalAdSlot[@adUnit='Standard Pre' or @adUnit='Standard Mid']";
+    String timePosition = "";
+
+    @Before
+    public void getFreeWheelNodes() {
+        NodeList nodeList = Charles.parseCharlesForFreeWheel(responseBodyExpression, xpathExpression);
+        if (nodeList.getLength() < 1)
+            log.info("Expected nodes were not found in charles session");
+        Node node = nodeList.item(0).getParentNode();
+        String adUnit = "Standard Pre";
+        String actualAdUnit = node.getAttributes().getNamedItem("adUnit").getTextContent();
+        if (adUnit.equals(actualAdUnit)) {
+            preRollNode = node;
+        } else {
+            midRollNode = node;
+        }
+    }
+
+    public void verifyFreeWheelMidRollCall() {
+        log.info(StackTraceInfo.getCurrentMethodName());
+        if (midRollNode != null) {
+            timePosition = midRollNode.getAttributes().getNamedItem("timePositionClass").getTextContent();
+        }
+        Assert.assertTrue("MidRoll ads were not found in Charles response.", timePosition.equalsIgnoreCase("midroll"));
+    }
 
     @Test
     public void verifyFreeWheelPreRollCall() {
         log.info(StackTraceInfo.getCurrentMethodName());
-        Node node = Charles.parseCharlesForFreeWheel(responseBodyExpression, preRollXpathExpression);
-        String timePosition = node.getAttributes().getNamedItem("timePositionClass").getTextContent();
+        if (preRollNode != null) {
+            timePosition = preRollNode.getAttributes().getNamedItem("timePositionClass").getTextContent();
+        }
         Assert.assertTrue("PreRoll ads were not found in Charles response.", timePosition.equals("preroll"));
     }
 
-    @Test
-    public void verifyFreeWheelMidRollCall() {
-        log.info(StackTraceInfo.getCurrentMethodName());
-        Node node = Charles.parseCharlesForFreeWheel(responseBodyExpression, standardMidXpathExpression);
-        String timePosition = node.getAttributes().getNamedItem("timePositionClass").getTextContent();
-        Assert.assertTrue("MidRoll ads were not found in Charles response.", timePosition.equalsIgnoreCase("midroll"));
-    }
 
 
     @After

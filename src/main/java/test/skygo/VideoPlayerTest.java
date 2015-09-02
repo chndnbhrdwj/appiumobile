@@ -11,8 +11,6 @@ import tools.Common;
  */
 public class VideoPlayerTest extends Testcase {
 
-    String assets;
-
     @Before
     public void setUp() {
         Common.startRecordingClearCharlesSession();
@@ -30,11 +28,11 @@ public class VideoPlayerTest extends Testcase {
                 .watchProgram()
                 .videoViewDisplayed()
                 .backToProgramDetails()
-                .goToOnNowPage()
-                .clickShowcaseItem()
+                .goToOnNowPage();
+                /*.clickShowcaseItem()
                 .watchProgram()
                 .videoViewDisplayed()
                 .backToProgramDetails()
-                .goToOnNowPage();
+                .goToOnNowPage();*/
     }
 }
