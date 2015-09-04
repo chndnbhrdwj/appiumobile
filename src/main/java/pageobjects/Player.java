@@ -1,6 +1,5 @@
 package pageobjects;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
 import pageobjects.mainpages.Page;
@@ -11,26 +10,26 @@ import tools.StackTraceInfo;
  */
 public class Player extends Page {
 
-    WebElement adCountdown, adText, advertVideo, videoView;
+    WebElement adCountdown, adText, videoView;
 
-    public Player() {
-        videoView = new Element().elementByResourceId("com.bskyb.skygo:id/videoview");
-    }
 
     public Player videoViewDisplayed() {
-        log.info(StackTraceInfo.getCurrentMethodName());
+        log.info("");
         try {
+            Thread.sleep(3000);
             adCountdown = new Element().elementByResourceId("com.bskyb.skygo:id/adCountdown");
             adText = new Element().elementByResourceId("com.bskyb.skygo:id/adtext");
             adText.isDisplayed();
-            adCountdown.isDisplayed();
             log.info("Advert was displayed for selected video stream");
-            waitForElement(videoView);
-            videoView.isDisplayed();
-        } catch (NoSuchElementException e) {
+            if (adCountdown.isDisplayed()) {
+                Thread.sleep(40000);
+            }
+            ;
+        } catch (Exception e) {
             log.info("Advert was not displayed for this video stream");
-            videoView.isDisplayed();
+            e.printStackTrace();
         }
+        isVideoViewPresent();
         return this;
     }
 
@@ -38,5 +37,10 @@ public class Player extends Page {
         log.info(StackTraceInfo.getCurrentMethodName());
         pressBack();
         return new ProgramDetailPage();
+    }
+
+    public boolean isVideoViewPresent() {
+        videoView = waitForElementByXpath("//android.widget.FrameLayout[@resource-id='com.bskyb.skygo:id/videoview']");
+        return videoView.isDisplayed();
     }
 }

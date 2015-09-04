@@ -16,6 +16,11 @@ public class Jenkins {
     SkygoProperties props;
 
     @Test
+    public void testIt() {
+        System.out.println(getBuildUrl());
+    }
+
+
     public String getBuildUrl() {
         props = new SkygoProperties();
         url = "http://172.20.141.64:9090/job/" + props.getPropertyValue("JenkinsBuild") + "/api/json?pretty=true";
@@ -33,7 +38,7 @@ public class Jenkins {
 
             for (Object obj : buildsArray) {
                 JSONObject jsonObj = (JSONObject) obj;
-                if (jsonObj.get("fileName").toString().equals("skygo-release-signed.apk"))
+                if (jsonObj.get("fileName").toString().equals("skygo-release-signed-aligned.apk"))
                     path = (String) jsonObj.get("relativePath");
             }
             path = stableUrlCorrectedPort + "artifact/" + path;
