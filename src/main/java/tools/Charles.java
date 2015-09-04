@@ -39,6 +39,11 @@ public class Charles {
         return client.getFreeWheelNode(null, endpoint, xpath, bodyXpathExpression);
     }
 
+    public static String parseCharlesForConviva(String xpath) {
+        String endpoint = charlesHost + CharlesEndpoints.GET_SESSION;
+        return client.getText(null, endpoint, xpath);
+    }
+
     public enum CharlesEndpoints {
 
         GET_SESSION("session/export-xml"),
@@ -48,7 +53,7 @@ public class Charles {
 
         private String endpoint;
 
-        private CharlesEndpoints(String s) {
+        CharlesEndpoints(String s) {
             endpoint = s;
         }
 
