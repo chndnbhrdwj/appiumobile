@@ -3,7 +3,6 @@ package pageobjects;
 import pagecomponents.Button;
 import pagecomponents.ImageView;
 import pageobjects.mainpages.HomePage;
-import tools.StackTraceInfo;
 
 /**
  * Created by chandan on 8/22/2015.
@@ -20,7 +19,7 @@ public class ProgramDetailPage extends HomePage {
     }
 
     public Player watchProgram() {
-        log.info(StackTraceInfo.getCurrentMethodName());
+        log.info("");
         buttonWatch.click();
         return new Player();
     }
