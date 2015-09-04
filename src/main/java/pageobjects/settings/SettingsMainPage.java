@@ -63,6 +63,20 @@ public class SettingsMainPage extends SettingsAbstract {
         return new SkyAccount();
     }
 
+    public boolean isSignInDisplayed() {
+        boolean displayed;
+        displayed = new TextView("Sign in").isDisplayed();
+        pressBack();
+        return displayed;
+    }
+
+    public boolean isSignOutDisplayed() {
+        boolean displayed;
+        displayed = new TextView("Sign Out").isDisplayed();
+        pressBack();
+        return displayed;
+    }
+
     //Not available on signed build
 /*
     public SelectConfig goToConfig() {

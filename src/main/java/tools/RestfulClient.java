@@ -1,5 +1,6 @@
 package tools;
 
+import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -104,6 +105,23 @@ public class RestfulClient {
         }
         return doc;
     }
+
+    public String getJsonResponse(String endpoint) {
+        String response = "";
+        try {
+            if (openConnection(endpoint)) {
+                InputStream is = conn.getInputStream();
+
+                response = IOUtils.toString(is);
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            conn.disconnect();
+        }
+        return response;
+    }
+
 
     public boolean openConnection(String endpoint) {
         try {

@@ -1,6 +1,5 @@
 package pageobjects.mainpages;
 
-import org.openqa.selenium.WebElement;
 import pagecomponents.Button;
 import pagecomponents.TextView;
 
@@ -10,7 +9,6 @@ import pagecomponents.TextView;
 public class SignOut extends Page {
 
     TextView signoutHeader;
-    WebElement userName, pass;
     Button signout;
 
     public SignOut() {
@@ -18,14 +16,12 @@ public class SignOut extends Page {
         signout = new Button("Sign Out");
     }
 
-    private HomePage clickSignOutButton() {
+    private void clickSignOutButton() {
         signout.click();
-        signedIn = false;
-        return new HomePage();
     }
 
-    public HomePage signOut() {
-        return clickSignOutButton();
+    public void signOut() {
+        clickSignOutButton();
     }
 
 

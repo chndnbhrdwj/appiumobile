@@ -17,4 +17,8 @@ public class ImageView extends Page {
     public void click() {
         image.click();
     }
+
+    public boolean isDisplayed() {
+        return image.isDisplayed();
+    }
 }

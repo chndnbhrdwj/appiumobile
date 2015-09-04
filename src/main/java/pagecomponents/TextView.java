@@ -17,4 +17,8 @@ public class TextView extends Page {
     public void click() {
         element.click();
     }
+
+    public boolean isDisplayed() {
+        return element.isDisplayed();
+    }
 }

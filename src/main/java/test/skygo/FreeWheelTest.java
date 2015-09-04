@@ -36,6 +36,11 @@ public class FreeWheelTest extends Testcase {
         }
     }
 
+    @Test
+    public void verifyConviva() throws Exception {
+        new ConvivaTest().getConvivaRequestBody();
+    }
+
     public void verifyFreeWheelMidRollCall() {
         log.info(StackTraceInfo.getCurrentMethodName());
         if (midRollNode != null) {

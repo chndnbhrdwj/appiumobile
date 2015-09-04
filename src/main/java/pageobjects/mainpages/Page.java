@@ -42,15 +42,17 @@ public class Page {
         }
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Nexus 6");
+        //capabilities.setCapability("fullReset", "true");
         capabilities.setCapability("platformVersion", "5.1.1");
         capabilities.setCapability("appPackage", "com.bskyb.skygo");
+        capabilities.setCapability("app", "/Users/cku04/appiumobile/SkyGo.apk");
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
         try {
             driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
             waitForElement(driver.findElement(By.id("com.bskyb.skygo:id/context_menu")));
         } catch (Exception e) {
             log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");
