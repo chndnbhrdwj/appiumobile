@@ -1,5 +1,6 @@
 package pagecomponents;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pageobjects.mainpages.Page;
 
@@ -11,7 +12,7 @@ public class ImageView extends Page {
     WebElement image;
 
     public ImageView(String id) {
-        image = driver.findElementById(id);
+        image = waitForElement(By.id(id), 3);
     }
 
     public void click() {

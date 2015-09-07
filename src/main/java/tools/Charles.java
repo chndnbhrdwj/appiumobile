@@ -44,6 +44,11 @@ public class Charles {
         return client.getText(null, endpoint, xpath);
     }
 
+    public static NodeList parseCharlesForComscore(String xpath) {
+        String endpoint = charlesHost + CharlesEndpoints.GET_SESSION;
+        return client.getAssets(endpoint, xpath);
+    }
+
     public enum CharlesEndpoints {
 
         GET_SESSION("session/export-xml"),

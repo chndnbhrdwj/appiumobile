@@ -16,7 +16,7 @@ public class DownloadsPage extends HomePage {
         try {
             emptyDownload = new ImageView("com.bskyb.skygo:id/empty_dl");
             if (emptyDownload.isDisplayed())
-                log.info("No downloads items found on Downloads page.");
+                log.info("No downloaded items found on Downloads page.");
         } catch (Exception e) {
             e.printStackTrace();
         }

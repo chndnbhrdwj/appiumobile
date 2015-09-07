@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import tools.Charles;
-import tools.StackTraceInfo;
 
 /**
  * Created by cku04 on 27/08/2015.
@@ -41,8 +40,13 @@ public class FreeWheelTest extends Testcase {
         new ConvivaTest().getConvivaRequestBody();
     }
 
+    @Test
+    public void verifyComscore() throws Exception {
+        new ComscoreTest().testIt();
+    }
+
     public void verifyFreeWheelMidRollCall() {
-        log.info(StackTraceInfo.getCurrentMethodName());
+        log.info("");
         if (midRollNode != null) {
             timePosition = midRollNode.getAttributes().getNamedItem("timePositionClass").getTextContent();
         }
@@ -51,7 +55,7 @@ public class FreeWheelTest extends Testcase {
 
     @Test
     public void verifyFreeWheelPreRollCall() {
-        log.info(StackTraceInfo.getCurrentMethodName());
+        log.info("");
         if (preRollNode != null) {
             timePosition = preRollNode.getAttributes().getNamedItem("timePositionClass").getTextContent();
         }
