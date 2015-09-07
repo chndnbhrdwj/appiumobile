@@ -1,7 +1,7 @@
 package pageobjects.settings.settingsmenu;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import pagecomponents.Element;
 import pageobjects.mainpages.SignIn;
 import pageobjects.settings.SettingsAbstract;
 
@@ -18,7 +18,7 @@ public class ParentalControls extends SettingsAbstract {
 
     private void checkPage() {
         try {
-            label = new Element().elementByXpath("//android.view.View[@content-desc='My settings']");
+            label = waitForElement(By.xpath("//android.view.View[@content-desc='My settings']"), 10);
         } catch (Exception e) {
             log.info("Need to login for the parental control page.");
             new SignIn().signIn(props.getPropertyValue("Username"), props.getPropertyValue("Password"));

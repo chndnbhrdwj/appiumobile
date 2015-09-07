@@ -1,5 +1,6 @@
 package pageobjects.mainpages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
 
@@ -12,7 +13,7 @@ public class SignIn extends Page {
     WebElement signIn;
 
     public SignIn() {
-        userName = new Element().elementByXpath("//android.widget.EditText[@content-desc='Username']");
+        userName = waitForElement(By.xpath("//android.widget.EditText[@content-desc='Username']"), 10);
         pass = new Element().elementByXpath("//android.view.View[@content-desc='Password']/following-sibling::android.view.View/android.widget.EditText");
         signIn = new Element().elementByXpath("//android.widget.Button[@content-desc='Sign in']");
     }
@@ -32,7 +33,6 @@ public class SignIn extends Page {
     private void clickSignInButton() {
         driver.hideKeyboard();
         signIn.click();
-        signedIn = true;
     }
 
     public void signIn(String user, String password) {

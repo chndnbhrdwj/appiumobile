@@ -6,7 +6,6 @@ import pageobjects.mainpages.SignIn;
 import pageobjects.mainpages.SignOut;
 import pageobjects.settings.help.HelpInfoMenu;
 import pageobjects.settings.settingsmenu.SettingsSubMenuPage;
-import tools.StackTraceInfo;
 
 /**
  * Created by chandan on 8/24/2015.
@@ -47,7 +46,7 @@ public class SettingsMainPage extends SettingsAbstract {
     }
 
     public SettingsSubMenuPage goToSettingsSubMenu() {
-        log.info(StackTraceInfo.getCurrentMethodName());
+        log.info("");
         settings.click();
         return new SettingsSubMenuPage();
     }
@@ -58,7 +57,7 @@ public class SettingsMainPage extends SettingsAbstract {
     }
 
     public SkyAccount goToSkyAccount() {
-        log.info(StackTraceInfo.getCurrentMethodName());
+        log.info("");
         skyAccount.click();
         return new SkyAccount();
     }

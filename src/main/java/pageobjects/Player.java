@@ -1,5 +1,6 @@
 package pageobjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
 import pageobjects.mainpages.Page;
@@ -16,17 +17,16 @@ public class Player extends Page {
     }
 
     public Player videoViewDisplayed() {
-        log.info("");
         try {
-            adCountdown = new Element().elementByResourceId("com.bskyb.skygo:id/adCountdown");
+            adCountdown = waitForElement(By.id("com.bskyb.skygo:id/adCountdown"), 3);
             adText = new Element().elementByResourceId("com.bskyb.skygo:id/adtext");
-            log.info("Advert was displayed for selected video stream");
+            log.info("Advert was displayed for selected video stream, Waiting for the content to show up.");
             if (adCountdown.isDisplayed()) {
-                Thread.sleep(40000);
+                advertDisplayed = true;
+                isVideoViewPresent();
             }
         } catch (Exception e) {
             log.info("Advert was not displayed for this video stream");
-            e.printStackTrace();
         }
         isVideoViewPresent();
         return this;
@@ -39,7 +39,8 @@ public class Player extends Page {
     }
 
     public boolean isVideoViewPresent() {
-        videoView = waitForElementByXpath("//android.widget.FrameLayout[@resource-id='com.bskyb.skygo:id/videoview']");
+        videoView = waitForElement(By.id("com.bskyb.skygo:id/videoview"), 120);
+        videoDisplayed = true;
         return videoView.isDisplayed();
     }
 }
