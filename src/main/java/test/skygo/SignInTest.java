@@ -21,5 +21,7 @@ public class SignInTest extends Testcase {
                 new HomePage()
                         .gotToSettingsMainPage()
                         .isSignOutDisplayed());
+
+
     }
 }

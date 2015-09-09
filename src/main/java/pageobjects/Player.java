@@ -12,19 +12,12 @@ public class Player extends Page {
 
     WebElement adCountdown, adText, videoView;
 
-    public Player() {
-
-    }
-
     public Player videoViewDisplayed() {
         try {
-            adCountdown = waitForElement(By.id("com.bskyb.skygo:id/adCountdown"), 3);
+            adCountdown = waitForElement(By.id("com.bskyb.skygo:id/adCountdown"), 8);
             adText = new Element().elementByResourceId("com.bskyb.skygo:id/adtext");
             log.info("Advert was displayed for selected video stream, Waiting for the content to show up.");
-            if (adCountdown.isDisplayed()) {
-                advertDisplayed = true;
-                isVideoViewPresent();
-            }
+            advertDisplayed = true;
         } catch (Exception e) {
             log.info("Advert was not displayed for this video stream");
         }

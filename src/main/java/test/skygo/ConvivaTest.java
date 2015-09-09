@@ -36,6 +36,7 @@ public class ConvivaTest extends Testcase {
         Assert.assertTrue("Device value in pm was not android", pm.get("dv").equals("android"));
         Assert.assertTrue("Device type value in pm was not Mobile", pm.get("dvt").equals("Mobile"));
         Assert.assertTrue("Operating System value in pm was not AND", pm.get("os").equals("AND"));
+        log.info("Conviva verification Done !!!");
     }
 
 

@@ -23,9 +23,9 @@ public class Page {
     public static AndroidDriver driver;
     public static Logger log;
     protected static SkygoProperties props;
+    static WebDriverWait wait;
     protected boolean advertDisplayed;
     protected boolean videoDisplayed;
-
 
     public Page() {
         props = new SkygoProperties();
@@ -34,22 +34,26 @@ public class Page {
     }
 
     protected static WebElement waitForElement(WebElement element) {
-        WebElement e = (new WebDriverWait(driver, 60000)).until(ExpectedConditions.visibilityOf(element));
+        wait = new WebDriverWait(driver, 60000);
+        WebElement e = wait.until(ExpectedConditions.visibilityOf(element));
         return e;
     }
 
     protected static WebElement waitForElementById(String id) {
-        WebElement element = (new WebDriverWait(driver, 60000)).until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+        wait = new WebDriverWait(driver, 60000);
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
         return element;
     }
 
     protected static WebElement waitForElement(By by, int timeInSeconds) {
-        WebElement element = (new WebDriverWait(driver, timeInSeconds)).until(ExpectedConditions.presenceOfElementLocated(by));
+        wait = new WebDriverWait(driver, timeInSeconds);
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         return element;
     }
 
     protected static WebElement waitForElementByXpath(String xpath) {
-        WebElement element = (new WebDriverWait(driver, 60000)).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+        wait = new WebDriverWait(driver, 60000);
+        WebElement element = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
         return element;
     }
 
@@ -78,7 +82,7 @@ public class Page {
         capabilities.setCapability("platformVersion", "5.1.1");
         capabilities.setCapability("appPackage", "com.bskyb.skygo");
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
-        capabilities.setCapability("newCommandTimeout", "60");
+        capabilities.setCapability("newCommandTimeout", "120");
         //capabilities.setCapability("fullReset", "true");
         //capabilities.setCapability("app", "/Users/cku04/appiumobile/SkyGo.apk");
         //capabilities.setCapability("appWaitActivity", appPath);
@@ -87,7 +91,7 @@ public class Page {
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");
-            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             try {
                 WebElement splashPage = null;
                 WebElement contextMenu = waitForElementById("com.bskyb.skygo:id/context_menu");
@@ -102,7 +106,7 @@ public class Page {
             }
 
         } catch (Exception e) {
-            log.info("The driver was not initialized successfully or Homepage took more than 90 secs to load.");
+            log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");
             System.exit(1);
         }
         return driver;

@@ -2,7 +2,6 @@ package test.skygo;
 
 import core.Testcase;
 import org.junit.Assert;
-import org.junit.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import tools.Charles;
@@ -19,8 +18,7 @@ public class ComscoreTest extends Testcase {
     List<String> query;
     NodeList comscoreCalls;
 
-    @Test
-    public void testIt() throws Exception {
+    public void testComscoreCalls() throws Exception {
         comscoreCalls = Charles.parseCharlesForComscore(comscoreQueryXpath);
         query = new ArrayList<String>();
 
@@ -35,15 +33,20 @@ public class ComscoreTest extends Testcase {
         for (int f = 0; f < comscoreCalls.getLength(); f++) {
             Node node = comscoreCalls.item(f);
             query.add(node.getAttributes().getNamedItem("query").toString());
-
+            log.info(query);
         }
+        //TODO array indexing has to be handled
+
         if (advertDisplayed) {
             Assert.assertTrue("Advert Play call was not found.", query.get(0).contains("ns_st_ev=ad_play"));
             Assert.assertTrue("Advert End call was not found.", query.get(1).contains("ns_st_ev=ad_end"));
+            log.info("Advert verification successful");
         }
         if (videoDisplayed) {
             Assert.assertTrue("Content Play call was not found.", query.get(2).contains("ns_st_ev=play"));
             Assert.assertTrue("Content End call was not found.", query.get(3).contains("ns_st_ev=end"));
+            log.info("Content verification successful");
         }
+        log.info("Comscore verification Done !!!");
     }
 }

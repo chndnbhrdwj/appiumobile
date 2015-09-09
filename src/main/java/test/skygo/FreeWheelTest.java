@@ -42,7 +42,7 @@ public class FreeWheelTest extends Testcase {
 
     @Test
     public void verifyComscore() throws Exception {
-        new ComscoreTest().testIt();
+        new ComscoreTest().testComscoreCalls();
     }
 
     public void verifyFreeWheelMidRollCall() {
@@ -61,8 +61,6 @@ public class FreeWheelTest extends Testcase {
         }
         Assert.assertTrue("PreRoll ads were not found in Charles response.", timePosition.equals("preroll"));
     }
-
-
 
     @After
     public void tearOff() {
