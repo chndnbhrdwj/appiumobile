@@ -1,5 +1,7 @@
 package pageobjects.mainpages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pagecomponents.TextView;
 import pageobjects.AllChannelsPage;
 
@@ -8,10 +10,15 @@ import pageobjects.AllChannelsPage;
  */
 public class OnNowPage extends ShowCasePage {
 
-    TextView allChannels, entertainment, sports;
+    WebElement allChannels;
+    TextView entertainment, sports;
 
     public OnNowPage() {
-        allChannels = new TextView("All Channels");
+        try {
+            allChannels = waitForElement(By.xpath("//android.widget.TextView[@text='On Now']"), 1);
+        } catch (Exception e) {
+            goToOnNowPage();
+        }
         entertainment = new TextView("Entertainment");
         sports = new TextView("Sports");
     }

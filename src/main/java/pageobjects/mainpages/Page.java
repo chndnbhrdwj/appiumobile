@@ -23,7 +23,6 @@ public class Page {
     public static AndroidDriver driver;
     public static Logger log;
     protected static SkygoProperties props;
-    static WebDriverWait wait;
     protected boolean advertDisplayed;
     protected boolean videoDisplayed;
 
@@ -33,27 +32,9 @@ public class Page {
         driver = getInstance();
     }
 
-    protected static WebElement waitForElement(WebElement element) {
-        wait = new WebDriverWait(driver, 60000);
-        WebElement e = wait.until(ExpectedConditions.visibilityOf(element));
-        return e;
-    }
-
-    protected static WebElement waitForElementById(String id) {
-        wait = new WebDriverWait(driver, 60000);
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
-        return element;
-    }
-
     protected static WebElement waitForElement(By by, int timeInSeconds) {
-        wait = new WebDriverWait(driver, timeInSeconds);
+        WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-        return element;
-    }
-
-    protected static WebElement waitForElementByXpath(String xpath) {
-        wait = new WebDriverWait(driver, 60000);
-        WebElement element = wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
         return element;
     }
 
@@ -91,25 +72,35 @@ public class Page {
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+
             try {
-                WebElement splashPage = null;
-                WebElement contextMenu = waitForElementById("com.bskyb.skygo:id/context_menu");
-                if (!contextMenu.isDisplayed()) {
-                    splashPage = waitForElement(By.id("com.bskyb.skygo:id/rich_pull_top_layout"), 3);
-                }
-                if (splashPage != null) {
-                    new Button("Close").click();
-                }
+                waitForElement(By.id("com.bskyb.skygo:id/context_menu"), 2);
             } catch (Exception e) {
-
+                closeSplashScreen();
             }
-
         } catch (Exception e) {
             log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");
             System.exit(1);
         }
         return driver;
+    }
+
+    /*public void waitForPageToLoad(AppiumDriver lDriver, WebElement element, int seconds){
+        WebDriverWait wait = new WebDriverWait(lDriver,seconds);
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+*/
+
+    private static void closeSplashScreen() {
+        try {
+            WebElement splashPage = waitForElement(By.id("com.bskyb.skygo:id/rich_pull_top_layout"), 1);
+            if (splashPage.isDisplayed()) {
+                new Button("Close").click();
+            }
+        } catch (Exception e) {
+            log.info("Splash page was not displayed");
+        }
     }
 
     public void pressBack() {
