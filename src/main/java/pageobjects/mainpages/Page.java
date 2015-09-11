@@ -14,6 +14,7 @@ import tools.Charles;
 import tools.Common;
 
 import java.net.URL;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -38,6 +39,17 @@ public class Page {
         return element;
     }
 
+    protected static List<WebElement> getListElements(By by) {
+        List<WebElement> list = driver.findElements(by);
+        return list;
+    }
+
+    protected static boolean waitForElementToDisappear(By by, int timeInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
+        boolean disappeared = wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        return disappeared;
+    }
+
     private static AndroidDriver getInstance() {
         if (driver != null) {
             return driver;
@@ -58,6 +70,13 @@ public class Page {
             e.printStackTrace();
         }
         }
+        DesiredCapabilities capabilitiesSamsung = new DesiredCapabilities();
+        capabilitiesSamsung.setCapability("deviceName", "Sky GO (SM-T230)");
+        capabilitiesSamsung.setCapability("platformVersion", "4.4.2");
+        capabilitiesSamsung.setCapability("appPackage", "com.bskyb.skygo");
+        capabilitiesSamsung.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
+        capabilitiesSamsung.setCapability("newCommandTimeout", "120");
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Nexus 6");
         capabilities.setCapability("platformVersion", "5.1.1");
@@ -66,18 +85,23 @@ public class Page {
         capabilities.setCapability("newCommandTimeout", "120");
         //capabilities.setCapability("fullReset", "true");
         //capabilities.setCapability("app", "/Users/cku04/appiumobile/SkyGo.apk");
-        //capabilities.setCapability("appWaitActivity", appPath);
+        //capabilities.setCapability("appWaitActivity", "component.fragment.main.HomeFragment");
+
         try {
-            driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+            //driver = new AndroidDriver<WebElement>(new URL("http://10.65.84.121:4444/grid/register"), capabilitiesSamsung);
+            driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilitiesSamsung);
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");
             driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
-            try {
-                waitForElement(By.id("com.bskyb.skygo:id/context_menu"), 2);
-            } catch (Exception e) {
-                closeSplashScreen();
+            boolean animationDisappeared = waitForElementToDisappear(By.id("com.bskyb.skygo:id/animation_placeholder"), 60);
+            if (animationDisappeared) {
+                try {
+                    waitForElement(By.id("com.bskyb.skygo:id/context_menu"), 2);
+                } catch (Exception e) {
+                    closeSplashScreen();
+                }
             }
         } catch (Exception e) {
             log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");
@@ -85,12 +109,6 @@ public class Page {
         }
         return driver;
     }
-
-    /*public void waitForPageToLoad(AppiumDriver lDriver, WebElement element, int seconds){
-        WebDriverWait wait = new WebDriverWait(lDriver,seconds);
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
-*/
 
     private static void closeSplashScreen() {
         try {

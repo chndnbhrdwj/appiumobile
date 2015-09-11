@@ -17,4 +17,8 @@ public class Button extends Page {
     public void click() {
         element.click();
     }
+
+    public boolean isDisplayed() {
+        return element.isDisplayed();
+    }
 }

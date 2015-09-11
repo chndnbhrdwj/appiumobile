@@ -5,6 +5,7 @@ import tools.Jenkins;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
@@ -24,17 +25,30 @@ public class SkyGoApp {
     }
 
     public void install() throws Exception {
-        System.out.println(executeCommand("adb install SkyGo.apk"));
+        execute("adb install SkyGo.apk");
     }
 
     public void clear() throws Exception {
-        System.out.println(executeCommand("adb shell pm clear com.bskyb.skygo"));
+        execute("adb shell pm clear com.bskyb.skygo");
     }
 
     public void uninstall() throws Exception {
-        p = Runtime.getRuntime().exec("adb uninstall com.bskyb.skygo");
-        p.waitFor();
-        System.out.println("Done");
+        execute("adb uninstall com.bskyb.skygo");
+    }
+
+    public void sendAdbEnterKey() {
+        execute("adb shell input keyevent 66");
+    }
+
+    private void execute(String command) {
+        try {
+            p = Runtime.getRuntime().exec(command);
+            p.waitFor();
+        } catch (IOException e) {
+            System.out.println("Couldn't send the command " + command);
+        } catch (InterruptedException e) {
+            System.out.println("Something wrong happened while waiting for command result " + command);
+        }
     }
 
     private String executeCommand(String command) {

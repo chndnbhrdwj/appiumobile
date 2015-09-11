@@ -13,10 +13,10 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 
         SignInTest.class,
-        HelpInfoNavigation.class,
+        /*HelpInfoNavigation.class,
         StartupCharlesTest.class,
         SettingsNavigation.class,
-        VideoPlayerTest.class,
+        */VideoPlayerTest.class,
         FreeWheelTest.class,
         SignOutTest.class
 

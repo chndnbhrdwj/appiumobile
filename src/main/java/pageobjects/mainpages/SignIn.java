@@ -13,7 +13,8 @@ public class SignIn extends Page {
     WebElement signIn;
 
     public SignIn() {
-        userName = waitForElement(By.xpath("//android.widget.EditText[@content-desc='Username']"), 10);
+        //userName = waitForElement(By.xpath("//android.widget.EditText[@content-desc='Username']"), 10);
+        userName = waitForElement(By.xpath("//android.view.View[@content-desc='Username']/following-sibling::android.view.View[1]/android.widget.EditText"), 10);
         pass = new Element().elementByXpath("//android.view.View[@content-desc='Password']/following-sibling::android.view.View/android.widget.EditText");
         signIn = new Element().elementByXpath("//android.widget.Button[@content-desc='Sign in']");
     }
@@ -40,6 +41,4 @@ public class SignIn extends Page {
                 .enterPassword(password)
                 .clickSignInButton();
     }
-
-
 }

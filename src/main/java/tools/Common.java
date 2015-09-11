@@ -1,11 +1,14 @@
 package tools;
 
 import io.appium.java_client.MobileElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
+import io.appium.java_client.NetworkConnectionSetting;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.w3c.dom.NodeList;
 import pageobjects.mainpages.Page;
+
+import java.util.HashMap;
 
 /**
  * Created by cku04 on 18/08/2015.
@@ -43,5 +46,37 @@ public class Common extends Page{
         Dimension size = element.getSize();
         driver.swipe(location.getX() + offset + 20, p.getY(),
                 location.getX() + size.getWidth() - offset, p.getY(), 1000);
+    }
+
+    public static void scrollDown(WebElement element) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        HashMap<String, String> scrollObject = new HashMap<String, String>();
+        scrollObject.put("direction", "down");
+        scrollObject.put("element", ((RemoteWebElement) element).getId());
+        js.executeScript("mobile: scroll", scrollObject);
+    }
+
+    public static void doubleClick(WebElement element) {
+        Actions action = new Actions(driver);
+        action.doubleClick(element);
+        action.perform();
+    }
+
+    public static void setNetworkOff() {
+        NetworkConnectionSetting conn = new NetworkConnectionSetting(true, false, false);
+        driver.setNetworkConnection(conn);
+        log.info("Network set to Aeroplane mode");
+    }
+
+    public static void setNetworkWifi() {
+        NetworkConnectionSetting conn = new NetworkConnectionSetting(false, true, false);
+        driver.setNetworkConnection(conn);
+        log.info("Network set to Wifi");
+    }
+
+    public static void setNetworkData() {
+        NetworkConnectionSetting conn = new NetworkConnectionSetting(false, false, true);
+        driver.setNetworkConnection(conn);
+        log.info("Network set to Mobile Data");
     }
 }

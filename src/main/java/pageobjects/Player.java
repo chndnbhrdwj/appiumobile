@@ -2,6 +2,7 @@ package pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pagecomponents.Button;
 import pagecomponents.Element;
 import pageobjects.mainpages.Page;
 
@@ -19,7 +20,15 @@ public class Player extends Page {
             log.info("Advert was displayed for selected video stream, Waiting for the content to show up.");
             advertDisplayed = true;
         } catch (Exception e) {
-            log.info("Advert was not displayed for this video stream");
+            try {
+                Button btnWatch = new Button("Watch");
+                if (btnWatch.isDisplayed()) {
+                    btnWatch.click();
+                    log.info("Clicked the Watch button again.");
+                }
+            } catch (Exception exception) {
+                log.info("Advert was not displayed for this video stream");
+            }
         }
         isVideoViewPresent();
         return this;

@@ -73,4 +73,9 @@ public class HomePage extends Page {
         return new HelpInfoMenu();
     }
 
+    public SearchPage gotToSearch() {
+        search.click();
+        return new SearchPage();
+    }
+
 }
