@@ -65,18 +65,14 @@ public class Page {
             app.install();
             log.info("Clearing the app data from device.");
             app.clear();
+            log.info("Setting the Charles proxy config on device.");
+            app.installProxyApp();
+            app.setProxy();
         } catch (Exception e) {
             log.info("Error occurred ..");
             e.printStackTrace();
         }
         }
-        DesiredCapabilities capabilitiesSamsung = new DesiredCapabilities();
-        capabilitiesSamsung.setCapability("deviceName", "Sky GO (SM-T230)");
-        capabilitiesSamsung.setCapability("platformVersion", "4.4.2");
-        capabilitiesSamsung.setCapability("appPackage", "com.bskyb.skygo");
-        capabilitiesSamsung.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
-        capabilitiesSamsung.setCapability("newCommandTimeout", "120");
-
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Nexus 6");
         capabilities.setCapability("platformVersion", "5.1.1");
@@ -88,8 +84,7 @@ public class Page {
         //capabilities.setCapability("appWaitActivity", "component.fragment.main.HomeFragment");
 
         try {
-            //driver = new AndroidDriver<WebElement>(new URL("http://10.65.84.121:4444/grid/register"), capabilitiesSamsung);
-            driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilitiesSamsung);
+            driver = new AndroidDriver<WebElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
             Charles.stopCharlesRecording();
             Common.startRecordingClearCharlesSession();
             log.info("Started charles recording.");

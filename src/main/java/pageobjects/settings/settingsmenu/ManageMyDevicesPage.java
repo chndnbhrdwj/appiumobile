@@ -12,7 +12,11 @@ public class ManageMyDevicesPage extends SettingsAbstract {
     WebElement label;
 
     public ManageMyDevicesPage() {
-        label = waitForElement(By.xpath("//android.view.View[@content-desc='Manage your devices']"), 10);
+        try {
+            label = waitForElement(By.xpath("//android.view.View[@content-desc='Manage your devices']"), 3);
+        } catch (Exception e) {
+            log.info("Probably user has not login recently.");
+        }
     }
 
 }

@@ -13,7 +13,11 @@ public class SkyMoviesPage extends ShowCasePage {
     WebElement recentlyAdded;
 
     public SkyMoviesPage() {
-        recentlyAdded = new Element().elementByXpath("//android.widget.TextView[@text='Recently Added']");
+        try {
+            recentlyAdded = new Element().elementByXpath("//android.widget.TextView[@text='Recently Added']");
+        } catch (Exception e) {
+            goToSkyMoviesPage();
+        }
         Common.swipeLeft(By.id("com.bskyb.skygo:id/image"));
     }
 

@@ -11,7 +11,11 @@ public class SkyBoxSetsPage extends ShowCasePage {
     WebElement slideView;
 
     public SkyBoxSetsPage() {
-        slideView = new Element().elementByResourceId("com.bskyb.skygo:id/now_featured_slide_listview");
+        try {
+            slideView = new Element().elementByResourceId("com.bskyb.skygo:id/now_featured_slide_listview");
+        } catch (Exception e) {
+            goToSkyBoxSetsPage();
+        }
     }
 
 

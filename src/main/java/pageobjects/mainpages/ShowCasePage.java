@@ -1,7 +1,7 @@
 package pageobjects.mainpages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import pagecomponents.Element;
 import pagecomponents.ImageView;
 import pageobjects.ProgramDetailPage;
 
@@ -14,13 +14,16 @@ public class ShowCasePage extends HomePage {
     WebElement programName;
 
     public ShowCasePage() {
-        showCaseItem = new ImageView("com.bskyb.skygo:id/image");
-        programName = new Element().elementByResourceId("com.bskyb.skygo:id/program_title");
-        //System.out.println("Program on screen is: " + programName.getAttribute("text"));
+        try {
+            showCaseItem = new ImageView("com.bskyb.skygo:id/image");
+        } catch (Exception e) {
+            log.info("Showcase page was not found as expected: " + e.getMessage());
+        }
     }
 
     public ProgramDetailPage clickShowcaseItem() {
-        log.info("");
+        programName = waitForElement(By.id("com.bskyb.skygo:id/program_title"), 5);
+        log.info("Loading Program details page for showcase item named: " + programName.getAttribute("text"));
         showCaseItem.click();
         return new ProgramDetailPage();
     }

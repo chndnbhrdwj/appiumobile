@@ -1,5 +1,8 @@
 package test.skygo;
 
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecuteResultHandler;
+import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import tools.Jenkins;
 
@@ -24,8 +27,39 @@ public class SkyGoApp {
         FileUtils.copyURLToFile(url, file);
     }
 
+    public void startCharles() {
+        execute("open /Applications/Charles.app");
+    }
+
+    public void startAppium() {
+        try {
+            CommandLine command = new CommandLine("/Applications/Appium.app/Contents/Resources/node/bin/node");
+            command.addArgument("/Applications/Appium.app/Contents/Resources/node_modules/appium/bin/appium.js", false);
+            command.addArgument("--address", false);
+            command.addArgument("127.0.0.1");
+            command.addArgument("--port", false);
+            command.addArgument("4723");
+            command.addArgument("--no-reset", false);
+            DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+            DefaultExecutor executor = new DefaultExecutor();
+            executor.setExitValue(1);
+            executor.execute(command, resultHandler);
+        } catch (Exception e) {
+            System.out.println("Couldn't start appium server");
+            e.printStackTrace();
+        }
+    }
+
     public void install() throws Exception {
         execute("adb install SkyGo.apk");
+    }
+
+    public void installProxyApp() throws Exception {
+        execute("adb install proxy-setter-release-0.1.3.apk");
+    }
+
+    public void setProxy() throws Exception {
+        execute("adb shell am start -n tk.elevenk.proxysetter/.MainActivity -e host 10.65.84.121 -e port 8090 -e bypass 127.0.0.1 -e ssid skygoandroid -e key goandr0id");
     }
 
     public void clear() throws Exception {

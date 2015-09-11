@@ -12,6 +12,10 @@ public class ManageMySkyId extends SettingsAbstract {
     WebElement myDetails;
 
     public ManageMySkyId() {
-        myDetails = waitForElement(By.xpath("//android.view.View[@content-desc='My details']"), 10);
+        try {
+            myDetails = waitForElement(By.xpath("//android.view.View[@content-desc='My details']"), 10);
+        } catch (Exception e) {
+            log.info("Probably user has not login recently.");
+        }
     }
 }

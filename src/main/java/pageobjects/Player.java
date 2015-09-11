@@ -41,7 +41,12 @@ public class Player extends Page {
     }
 
     public boolean isVideoViewPresent() {
-        videoView = waitForElement(By.id("com.bskyb.skygo:id/videoview"), 120);
+        try {
+            videoView = waitForElement(By.id("com.bskyb.skygo:id/videoview"), 120);
+        } catch (Exception e) {
+            log.info("Video view was not displayed.");
+            videoDisplayed = false;
+        }
         videoDisplayed = true;
         return videoView.isDisplayed();
     }
