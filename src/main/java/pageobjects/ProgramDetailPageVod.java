@@ -10,7 +10,7 @@ import pagecomponents.TextView;
  */
 public class ProgramDetailPageVod extends ProgramDetailPage {
 
-    WebElement buttonDownload;
+    WebElement buttonDownload, buttonQueued, buttonDownloading;
     TextView youCanDownload;
 
     public ProgramDetailPageVod downloadProgram() {
@@ -26,7 +26,7 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
         return this;
     }
 
-    public boolean downloadButtonPresent() {
+    private boolean downloadButtonPresent() {
         try {
             buttonDownload = waitForElement(By.xpath("//android.widget.Button[@text='Download']"), 2);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
         return true;
     }
 
-    public boolean skyGoExtraPresent() {
+    private boolean skyGoExtraPresent() {
         try {
             youCanDownload = new TextView("Now you can download popular movies and shows to this device");
         } catch (Exception e) {
@@ -44,5 +44,25 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
             return false;
         }
         return youCanDownload.isDisplayed();
+    }
+
+    private boolean buttonQueued() {
+        try {
+            buttonQueued = waitForElement(By.xpath("//android.widget.Button[@text='Queued']"), 5);
+        } catch (Exception e) {
+            log.info("Button Queued was not displayed");
+            return false;
+        }
+        return buttonQueued.isDisplayed();
+    }
+
+    private boolean buttonDownloading() {
+        try {
+            buttonDownload = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 5);
+        } catch (Exception e) {
+            log.info("Button Downloading was not displayed");
+            return false;
+        }
+        return buttonDownload.isDisplayed();
     }
 }
