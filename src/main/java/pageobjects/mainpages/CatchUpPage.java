@@ -2,6 +2,7 @@ package pageobjects.mainpages;
 
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
+import pageobjects.ProgramDetailPage;
 
 /**
  * Created by cku04 on 17/08/2015.
@@ -18,6 +19,11 @@ public class CatchUpPage extends ShowCasePage {
         } catch (Exception e) {
             goToCatchUpPage();
         }
+    }
+
+    @Override
+    public ProgramDetailPage clickShowcase() {
+        return null;
     }
 
 }

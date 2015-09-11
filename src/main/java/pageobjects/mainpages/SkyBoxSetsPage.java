@@ -2,6 +2,7 @@ package pageobjects.mainpages;
 
 import org.openqa.selenium.WebElement;
 import pagecomponents.Element;
+import pageobjects.ProgramDetailPage;
 
 /**
  * Created by cku04 on 20/08/2015.
@@ -18,6 +19,10 @@ public class SkyBoxSetsPage extends ShowCasePage {
         }
     }
 
+    @Override
+    public ProgramDetailPage clickShowcase() {
+        return null;
+    }
 
 
 }

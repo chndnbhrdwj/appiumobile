@@ -13,11 +13,12 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 
         SignInTest.class,
-        SearchTest.class,
+        DownloadTest.class,
+        /*SearchTest.class,
         HelpInfoNavigation.class,
         StartupCharlesTest.class,
         SettingsNavigation.class,
-        VideoPlayerTest.class,
+        */VideoPlayerTest.class,
         FreeWheelTest.class,
         SignOutTest.class
 

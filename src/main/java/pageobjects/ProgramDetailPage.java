@@ -13,7 +13,6 @@ public class ProgramDetailPage extends HomePage {
     ImageView programImage;
 
     public ProgramDetailPage() {
-        //buttonDownload = new Button("Download");
         buttonWatch = new Button("Watch");
         programImage = new ImageView("com.bskyb.skygo:id/programme_image");
     }

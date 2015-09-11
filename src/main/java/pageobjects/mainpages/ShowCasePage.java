@@ -4,12 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pagecomponents.ImageView;
 import pageobjects.ProgramDetailPage;
+import tools.Common;
 
 
 /**
  * Created by chandan on 8/24/2015.
  */
-public class ShowCasePage extends HomePage {
+public abstract class ShowCasePage extends HomePage {
     ImageView showCaseItem;
     WebElement programName;
 
@@ -21,10 +22,16 @@ public class ShowCasePage extends HomePage {
         }
     }
 
-    public ProgramDetailPage clickShowcaseItem() {
+    public abstract ProgramDetailPage clickShowcase();
+
+    protected void clickShowcaseItem() {
         programName = waitForElement(By.id("com.bskyb.skygo:id/program_title"), 5);
         log.info("Loading Program details page for showcase item named: " + programName.getAttribute("text"));
         showCaseItem.click();
-        return new ProgramDetailPage();
+    }
+
+    public ShowCasePage swipeLeft() {
+        Common.swipeLeft(By.id("com.bskyb.skygo:id/image"));
+        return this;
     }
 }

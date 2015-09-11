@@ -11,7 +11,7 @@ public class TextView extends Page {
     WebElement element;
 
     public TextView(String text) {
-        element = driver.findElementByXPath("//android.widget.TextView[@text='" + text + "']");
+        element = driver.findElementByXPath("//android.widget.TextView[contains(@text,'" + text + "')]");
     }
 
     public void click() {
