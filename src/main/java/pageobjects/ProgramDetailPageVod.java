@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pagecomponents.Button;
 import pagecomponents.TextView;
+import tools.Common;
 
 /**
  * Created by chandan on 8/22/2015.
@@ -11,7 +12,7 @@ import pagecomponents.TextView;
 public class ProgramDetailPageVod extends ProgramDetailPage {
 
     WebElement buttonDownload, buttonQueued, buttonDownloading;
-    TextView youCanDownload;
+    TextView youCanDownloadTextView;
 
     public ProgramDetailPageVod downloadProgram() {
         if (downloadButtonPresent()) {
@@ -19,9 +20,12 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
             if (skyGoExtraPresent()) {
                 new Button("Continue").click();
             }
-
+            buttonQueued();
+            buttonDownloading();
         } else {
             pressBack();
+            Common.swipeLeft(By.id("com.bskyb.skygo:id/image"));
+            downloadProgram();
         }
         return this;
     }
@@ -38,12 +42,12 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
 
     private boolean skyGoExtraPresent() {
         try {
-            youCanDownload = new TextView("Now you can download popular movies and shows to this device");
+            youCanDownloadTextView = new TextView("Now you can download popular movies and shows to this device");
         } catch (Exception e) {
             log.info("Sky Go Extra dialog was not displayed");
             return false;
         }
-        return youCanDownload.isDisplayed();
+        return youCanDownloadTextView.isDisplayed();
     }
 
     private boolean buttonQueued() {
@@ -58,11 +62,11 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
 
     private boolean buttonDownloading() {
         try {
-            buttonDownload = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 5);
+            buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 5);
         } catch (Exception e) {
             log.info("Button Downloading was not displayed");
             return false;
         }
-        return buttonDownload.isDisplayed();
+        return buttonDownloading.isDisplayed();
     }
 }

@@ -54,24 +54,25 @@ public class Page {
         if (driver != null) {
             return driver;
         }
+
         if (props.getPropertyValue("RunOnJenkins").equals("true")) {
-        try {
-            SkyGoApp app = new SkyGoApp();
-            log.info("Downloading app from Jenkins.");
-            app.download();
-            log.info("Uninstalling the app from device.");
-            app.uninstall();
-            log.info("Installing the app on device.");
-            app.install();
-            log.info("Clearing the app data from device.");
-            app.clear();
-            log.info("Setting the Charles proxy config on device.");
-            app.installProxyApp();
-            app.setProxy();
-        } catch (Exception e) {
-            log.info("Error occurred ..");
-            e.printStackTrace();
-        }
+            try {
+                SkyGoApp app = new SkyGoApp();
+                log.info("Downloading app from Jenkins.");
+                app.download();
+                log.info("Uninstalling the app from device.");
+                app.uninstall();
+                log.info("Installing the app on device.");
+                app.install();
+                log.info("Clearing the app data from device.");
+                app.clear();
+                log.info("Setting the Charles proxy config on device.");
+                app.installProxyApp();
+                app.setProxy();
+            } catch (Exception e) {
+                log.info("Error occurred ..");
+                e.printStackTrace();
+            }
         }
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("deviceName", "Nexus 6");
@@ -79,6 +80,7 @@ public class Page {
         capabilities.setCapability("appPackage", "com.bskyb.skygo");
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
         capabilities.setCapability("newCommandTimeout", "120");
+        //capabilities.setCapability("udid", "");
         //capabilities.setCapability("fullReset", "true");
         //capabilities.setCapability("app", "/Users/cku04/appiumobile/SkyGo.apk");
         //capabilities.setCapability("appWaitActivity", "component.fragment.main.HomeFragment");

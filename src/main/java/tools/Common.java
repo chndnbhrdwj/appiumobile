@@ -79,4 +79,16 @@ public class Common extends Page{
         driver.setNetworkConnection(conn);
         log.info("Network set to Mobile Data");
     }
+
+    public static void openNotifications() {
+        driver.openNotifications();
+    }
+
+    public static void scrollToText(String text) {
+        driver.findElementByAndroidUIAutomator(
+                "new UiScrollable(new UiSelector().scrollable(true).instance(0))" +
+                        ".scrollIntoView(new UiSelector()" +
+                        ".textContains(\"" + text + "\").instance(0))")
+                .click();
+    }
 }
