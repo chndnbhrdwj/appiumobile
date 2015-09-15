@@ -34,19 +34,34 @@ public class Page {
     }
 
     protected static WebElement waitForElement(By by, int timeInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        WebElement element = null;
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
+            element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        } catch (Exception e) {
+            log.info("Expected element was not found !!! " + e.getMessage());
+        }
         return element;
     }
 
     protected static List<WebElement> getListElements(By by) {
-        List<WebElement> list = driver.findElements(by);
+        List<WebElement> list = null;
+        try {
+            list = driver.findElements(by);
+        } catch (Exception e) {
+            log.info("Expected element was not found !!! " + e.getMessage());
+        }
         return list;
     }
 
     protected static boolean waitForElementToDisappear(By by, int timeInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
-        boolean disappeared = wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        boolean disappeared = false;
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
+            disappeared = wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
+        } catch (Exception e) {
+            log.info("Expected element was not found !!! " + e.getMessage());
+        }
         return disappeared;
     }
 
