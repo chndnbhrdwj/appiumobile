@@ -70,6 +70,14 @@ public class SkyGoApp {
         execute("adb uninstall com.bskyb.skygo");
     }
 
+    public void takeScreenshot() {
+        try {
+            execute("adb shell screencap -p | perl -pe 's/\\x0D\\x0A/\\x0A/g' > screen_$(date +%Y%m%d_%H%M%S).jpg");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void sendAdbEnterKey() {
         execute("adb shell input keyevent 66");
     }

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pagecomponents.Button;
 import pagecomponents.TextView;
+import pageobjects.mainpages.DownloadsPage;
 import tools.Common;
 
 /**
@@ -62,11 +63,16 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
 
     private boolean buttonDownloading() {
         try {
-            buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 5);
+            buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 10);
         } catch (Exception e) {
             log.info("Button Downloading was not displayed");
             return false;
         }
         return buttonDownloading.isDisplayed();
+    }
+
+    public DownloadsPage verifyDownload() {
+
+        return new DownloadsPage();
     }
 }

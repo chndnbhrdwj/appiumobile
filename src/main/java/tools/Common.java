@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.w3c.dom.NodeList;
 import pageobjects.mainpages.Page;
+import test.skygo.SkyGoApp;
 
 import java.util.HashMap;
 
@@ -78,6 +79,10 @@ public class Common extends Page{
         NetworkConnectionSetting conn = new NetworkConnectionSetting(false, false, true);
         driver.setNetworkConnection(conn);
         log.info("Network set to Mobile Data");
+    }
+
+    public static void screenShot() {
+        new SkyGoApp().takeScreenshot();
     }
 
     public static void openNotifications() {
