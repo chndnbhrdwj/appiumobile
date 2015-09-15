@@ -39,7 +39,7 @@ public class Page {
             WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Exception e) {
-            log.info("Expected element was not found !!! " + e.getMessage());
+            log.info("Expected element was not found !!! \n" + e.getMessage());
         }
         return element;
     }
@@ -49,7 +49,7 @@ public class Page {
         try {
             list = driver.findElements(by);
         } catch (Exception e) {
-            log.info("Expected element was not found !!! " + e.getMessage());
+            log.info("Expected element was not found !!! \n" + e.getMessage());
         }
         return list;
     }
@@ -60,7 +60,7 @@ public class Page {
             WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
             disappeared = wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
         } catch (Exception e) {
-            log.info("Expected element was not found !!! " + e.getMessage());
+            log.info("Expected element was not found !!! \n" + e.getMessage());
         }
         return disappeared;
     }
