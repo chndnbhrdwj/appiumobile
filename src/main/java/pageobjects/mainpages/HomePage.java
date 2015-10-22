@@ -16,6 +16,7 @@ public class HomePage extends Page {
 
 
     public HomePage() {
+        closeSplashScreen();
         contextMenu = new ImageView("com.bskyb.skygo:id/context_menu");
         search = new ImageView("com.bskyb.skygo:id/search");
         settings = new ImageView("com.bskyb.skygo:id/more");

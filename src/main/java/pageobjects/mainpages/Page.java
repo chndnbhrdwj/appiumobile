@@ -94,7 +94,7 @@ public class Page {
         capabilities.setCapability("platformVersion", "5.1.1");
         capabilities.setCapability("appPackage", "com.bskyb.skygo");
         capabilities.setCapability("appActivity", "component.fragment.main.SkyGoActivity");
-        capabilities.setCapability("newCommandTimeout", "120");
+        capabilities.setCapability("newCommandTimeout", "80");
         //capabilities.setCapability("udid", "");
         //capabilities.setCapability("fullReset", "true");
         //capabilities.setCapability("app", "/Users/cku04/appiumobile/SkyGo.apk");
@@ -109,12 +109,8 @@ public class Page {
 
             boolean animationDisappeared = waitForElementToDisappear(By.id("com.bskyb.skygo:id/animation_placeholder"), 60);
             if (animationDisappeared) {
-                try {
-                    waitForElement(By.id("com.bskyb.skygo:id/context_menu"), 2);
-                } catch (Exception e) {
                     closeSplashScreen();
                 }
-            }
         } catch (Exception e) {
             log.info("The driver was not initialized successfully or Homepage took more than 60 secs to load.");
             System.exit(1);
@@ -122,7 +118,7 @@ public class Page {
         return driver;
     }
 
-    private static void closeSplashScreen() {
+    protected static void closeSplashScreen() {
         try {
             WebElement splashPage = waitForElement(By.id("com.bskyb.skygo:id/rich_pull_top_layout"), 1);
             if (splashPage.isDisplayed()) {
