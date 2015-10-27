@@ -16,7 +16,7 @@ public class OnNowPage extends ShowCasePage {
 
     public OnNowPage() {
         try {
-            allChannels = waitForElement(By.xpath("//android.widget.TextView[@text='On Now']"), 1);
+            allChannels = waitForElement(By.xpath("//android.widget.TextView[@text='All Channels']"), 1);
         } catch (Exception e) {
             goToOnNowPage();
         }
