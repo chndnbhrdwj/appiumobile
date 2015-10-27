@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import pagecomponents.Button;
 import pagecomponents.TextView;
 import pageobjects.mainpages.DownloadsPage;
+import pageobjects.mainpages.SkyMoviesPage;
+import pojo.DownloadItem;
 import tools.Common;
 
 /**
@@ -12,33 +14,30 @@ import tools.Common;
  */
 public class ProgramDetailPageVod extends ProgramDetailPage {
 
-    WebElement buttonDownload, buttonQueued, buttonDownloading;
+    WebElement buttonDownload, buttonQueued, buttonDownloading, downloadNotification;
     TextView youCanDownloadTextView;
+    String downloadNotificationXpath = "//android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout";
+    DownloadsPage downloadsPage;
+    DownloadItem downloadItem;
 
-    public ProgramDetailPageVod downloadProgram() {
+    public DownloadsPage downloadProgram() {
         if (downloadButtonPresent()) {
             buttonDownload.click();
             if (skyGoExtraPresent()) {
                 new Button("Continue").click();
             }
-            buttonQueued();
             buttonDownloading();
+            downloadsPage = verifyDownload();
         } else {
-            pressBack();
-            Common.swipeLeft(By.id("com.bskyb.skygo:id/image"));
+            launchNextProgram();
             downloadProgram();
         }
-        return this;
+        return downloadsPage;
     }
 
     private boolean downloadButtonPresent() {
-        try {
-            buttonDownload = waitForElement(By.xpath("//android.widget.Button[@text='Download']"), 2);
-        } catch (Exception e) {
-            log.info("Download button not available for this program.");
-            return false;
-        }
-        return true;
+        buttonDownload = waitForElement(By.xpath("//android.widget.Button[@text='Download']"), 2);
+        return (buttonDownload != null) ? true : false;
     }
 
     private boolean skyGoExtraPresent() {
@@ -52,27 +51,35 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
     }
 
     private boolean buttonQueued() {
-        try {
-            buttonQueued = waitForElement(By.xpath("//android.widget.Button[@text='Queued']"), 5);
-        } catch (Exception e) {
-            log.info("Button Queued was not displayed");
-            return false;
-        }
-        return buttonQueued.isDisplayed();
+        buttonQueued = waitForElement(By.xpath("//android.widget.Button[@text='Queued']"), 5);
+        return (buttonQueued != null) ? buttonQueued.isDisplayed() : false;
     }
 
     private boolean buttonDownloading() {
-        try {
-            buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 10);
-        } catch (Exception e) {
-            log.info("Button Downloading was not displayed");
-            return false;
-        }
-        return buttonDownloading.isDisplayed();
+        buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 60);
+        return (buttonDownloading != null) ? buttonDownloading.isDisplayed() : false;
     }
 
     public DownloadsPage verifyDownload() {
+        Common.openNotifications();
+        downloadNotification = waitForElement(By.xpath(downloadNotificationXpath + "/android.widget.ProgressBar[@resource-id='com.bskyb.skygo:id/notificationProgressBar']"), 20);
+        return openDownload();
+    }
 
+    private DownloadsPage openDownload() {
+        String downloadTitle = waitForElement(By.xpath(downloadNotificationXpath + "/android.widget.TextView[@resource-id='com.bskyb.skygo:id/text']"), 1).getAttribute("text");
+        String downloadPercentage = waitForElement(By.xpath(downloadNotificationXpath + "/android.widget.TextView[@resource-id='com.bskyb.skygo:id/progress_text']"), 1).getAttribute("text");
+        downloadItem.setPercentage(downloadPercentage);
+        downloadItem.setTitle(downloadTitle);
+        log.info("Download notification for " + downloadTitle + " with progress " + downloadPercentage);
+        downloadNotification.click();
         return new DownloadsPage();
+    }
+
+    private ProgramDetailPage launchNextProgram() {
+        pressBack();
+        return new SkyMoviesPage()
+                .swipeLeft()
+                .clickShowcase();
     }
 }

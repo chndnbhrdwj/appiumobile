@@ -85,5 +85,4 @@ public class SettingsMainPage extends SettingsAbstract {
 */
 
 
-
 }

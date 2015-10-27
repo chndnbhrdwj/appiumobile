@@ -39,7 +39,7 @@ public class Page {
             WebDriverWait wait = new WebDriverWait(driver, timeInSeconds);
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
         } catch (Exception e) {
-            log.info("Expected element was not found !!! \n" + e.getMessage());
+            log.info("Expected element not found!!! " + by.toString());
         }
         return element;
     }
@@ -120,7 +120,7 @@ public class Page {
 
     protected static void closeSplashScreen() {
         try {
-            WebElement splashPage = waitForElement(By.id("com.bskyb.skygo:id/rich_pull_top_layout"), 1);
+            WebElement splashPage = waitForElement(By.id("com.bskyb.skygo:id/rich_pull_top_layout"), 3);
             if (splashPage.isDisplayed()) {
                 new Button("Close").click();
             }

@@ -13,10 +13,16 @@ public class HomePage extends Page {
 
     ImageView contextMenu, search, settings;
     WebElement splashPage;
+    //static int count=0;
 
 
     public HomePage() {
-        closeSplashScreen();
+        /*if(count<3){
+            log.info("Attempt to close the splash screen for "+count+" time.");
+            closeSplashScreen();
+            count++;
+        }
+        */
         contextMenu = new ImageView("com.bskyb.skygo:id/context_menu");
         search = new ImageView("com.bskyb.skygo:id/search");
         settings = new ImageView("com.bskyb.skygo:id/more");

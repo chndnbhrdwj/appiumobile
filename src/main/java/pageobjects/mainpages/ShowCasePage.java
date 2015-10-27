@@ -34,4 +34,8 @@ public abstract class ShowCasePage extends HomePage {
         Common.swipeLeft(By.id("com.bskyb.skygo:id/image"));
         return this;
     }
+
+    public String getProgramTitle() {
+        return programName.getAttribute("text");
+    }
 }

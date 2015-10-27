@@ -21,6 +21,7 @@ public class SkyMoviesPage extends ShowCasePage {
 
     @Override
     public ProgramDetailPageVod clickShowcase() {
+        swipeLeft();
         clickShowcaseItem();
         return new ProgramDetailPageVod();
     }

@@ -11,6 +11,7 @@ public class ProgramDetailPage extends HomePage {
 
     Button buttonWatch, buttonDownload;
     ImageView programImage;
+    String programTitle;
 
     public ProgramDetailPage() {
         buttonWatch = new Button("Watch");

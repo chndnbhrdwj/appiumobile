@@ -14,7 +14,7 @@ import java.util.HashMap;
 /**
  * Created by cku04 on 18/08/2015.
  */
-public class Common extends Page{
+public class Common extends Page {
 
 
     public static void startRecordingClearCharlesSession() {

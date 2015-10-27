@@ -40,5 +40,6 @@ public class SignIn extends Page {
         enterUsername(user)
                 .enterPassword(password)
                 .clickSignInButton();
+        closeSplashScreen();
     }
 }
