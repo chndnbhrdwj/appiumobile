@@ -69,6 +69,7 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
     private DownloadsPage openDownload() {
         String downloadTitle = waitForElement(By.xpath(downloadNotificationXpath + "/android.widget.TextView[@resource-id='com.bskyb.skygo:id/text']"), 1).getAttribute("text");
         String downloadPercentage = waitForElement(By.xpath(downloadNotificationXpath + "/android.widget.TextView[@resource-id='com.bskyb.skygo:id/progress_text']"), 1).getAttribute("text");
+        downloadItem = new DownloadItem();
         downloadItem.setPercentage(downloadPercentage);
         downloadItem.setTitle(downloadTitle);
         log.info("Download notification for " + downloadTitle + " with progress " + downloadPercentage);

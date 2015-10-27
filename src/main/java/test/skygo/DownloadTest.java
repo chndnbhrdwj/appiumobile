@@ -15,6 +15,7 @@ public class DownloadTest extends Testcase {
                 .goToSkyMoviesPage()
                 .clickShowcase()
                 .downloadProgram()
-                .verifyDownloadProgress();
+                .verifyDownloadProgress()
+                .goToOnNowPage();
     }
 }
