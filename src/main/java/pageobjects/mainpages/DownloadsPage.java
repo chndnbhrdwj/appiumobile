@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
  */
 public class DownloadsPage extends HomePage {
     WebElement downloadsList, element;
-    String emptyDownloadXpath = "//android.widget.ImageView[@resource-id='com.bskyb.skygo:id/empty_dl']";
+    String emptyDownloadXpath = "//android.widget.LinearLayout[@resource-id='com.bskyb.skygo:id/empty_dl']";
     String downloadListXpath = "//android.widget.FrameLayout[@resource-id='com.bskyb.skygo:id/fragment_placeholder']//android.widget.ListView[@resource-id='com.bskyb.skygo:id/epglist']";
     String InProgressXpath = downloadListXpath + "//android.widget.TextView[@text='In Progress']";
 

@@ -26,8 +26,12 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
             if (skyGoExtraPresent()) {
                 new Button("Continue").click();
             }
-            buttonDownloading();
-            downloadsPage = verifyDownload();
+            if(buttonDownloadingPresent()){
+                downloadsPage = verifyDownload();
+            }else{
+                launchNextProgram();
+                downloadProgram();
+            }
         } else {
             launchNextProgram();
             downloadProgram();
@@ -55,8 +59,8 @@ public class ProgramDetailPageVod extends ProgramDetailPage {
         return (buttonQueued != null) ? buttonQueued.isDisplayed() : false;
     }
 
-    private boolean buttonDownloading() {
-        buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 60);
+    private boolean buttonDownloadingPresent() {
+        buttonDownloading = waitForElement(By.xpath("//android.widget.Button[@text='Downloading']"), 30);
         return (buttonDownloading != null) ? buttonDownloading.isDisplayed() : false;
     }
 

@@ -38,7 +38,7 @@ public class Jenkins {
 
             for (Object obj : buildsArray) {
                 JSONObject jsonObj = (JSONObject) obj;
-                if (jsonObj.get("fileName").toString().equals("skygo-release-signed-aligned.apk"))
+                if (jsonObj.get("fileName").toString().equals(props.getPropertyValue("BuildName")))
                     path = (String) jsonObj.get("relativePath");
             }
             path = stableUrlCorrectedPort + "artifact/" + path;
