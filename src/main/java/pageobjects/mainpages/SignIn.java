@@ -20,13 +20,11 @@ public class SignIn extends Page {
     }
 
     private SignIn enterUsername(String user) {
-        userName.clear();
         userName.sendKeys(user);
         return this;
     }
 
     private SignIn enterPassword(String password) {
-        pass.clear();
         pass.sendKeys(password);
         return this;
     }
