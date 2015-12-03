@@ -15,13 +15,13 @@ import org.junit.runners.Suite;
         SignInTest.class,
         DownloadTest.class,
         SearchTest.class,
-        HelpInfoNavigation.class,
+/*        HelpInfoNavigation.class,
         StartupCharlesTest.class,
         SettingsNavigation.class,
         VideoPlayerTest.class,
         FreeWheelTest.class,
         SignOutTest.class
-/**/
+*/
 
 })
 
